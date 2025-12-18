@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const earlyAccessUrl = "https://app.banshee.chat/early-access";
+---
+
+<Layout title="Banshee.chat — Customer chat that doesn't break the bank">
+  <!-- Nav -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-banshee-950/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 text-xl font-bold">
+        <span class="text-ghost-400">👻</span>
+        <span>Banshee</span>
+      </a>
+      <a
+        href={earlyAccessUrl}
+        class="px-4 py-2 bg-banshee-600 hover:bg-banshee-500 rounded-lg font-medium transition-colors text-sm"
+      >
+        Get Early Access
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="min-h-screen flex items-center pt-20">
+    <div class="max-w-6xl mx-auto px-6 py-20">
+      <div class="max-w-3xl">
+        <p class="text-ghost-400 font-medium mb-4 text-sm uppercase tracking-wider">
+          Launching Soon
+        </p>
+        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+          Only banshees should be
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-banshee-400 to-ghost-400">
+            screaming
+          </span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-400 mb-8 leading-relaxed">
+          Customer support shouldn't break the bank. AI-powered chat for startups and small teams — without the enterprise price tag.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a
+            href={earlyAccessUrl}
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-banshee-600 to-banshee-500 hover:from-banshee-500 hover:to-banshee-400 rounded-xl font-semibold text-lg transition-all shadow-lg shadow-banshee-600/25 hover:shadow-banshee-500/40"
+          >
+            Get Early Access
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Statement -->
+  <section class="py-20 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-2xl md:text-3xl text-gray-300 leading-relaxed">
+          Enterprise chat tools charge enterprise prices.
+          <span class="text-white font-semibold">You shouldn't need a $500/month tool</span>
+          just to talk to your customers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-20 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">
+        Everything you need. Nothing you don't.
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Lightweight -->
+        <div class="p-6 rounded-2xl bg-gradient-to-b from-banshee-900/50 to-transparent border border-white/5">
+          <div class="w-12 h-12 rounded-xl bg-banshee-800 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ghost-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Lightweight</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Your chat widget shouldn't outweigh your landing page. Ours is under 30KB.
+          </p>
+        </div>
+
+        <!-- AI Translation -->
+        <div class="p-6 rounded-2xl bg-gradient-to-b from-banshee-900/50 to-transparent border border-white/5">
+          <div class="w-12 h-12 rounded-xl bg-banshee-800 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ghost-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">AI Translation</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Talk to customers in any language. We translate both ways, automatically.
+          </p>
+        </div>
+
+        <!-- Team Inbox -->
+        <div class="p-6 rounded-2xl bg-gradient-to-b from-banshee-900/50 to-transparent border border-white/5">
+          <div class="w-12 h-12 rounded-xl bg-banshee-800 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ghost-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Team Inbox</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Real-time collaboration. See who's typing, assign conversations, stay in sync.
+          </p>
+        </div>
+
+        <!-- Affordable -->
+        <div class="p-6 rounded-2xl bg-gradient-to-b from-banshee-900/50 to-transparent border border-white/5">
+          <div class="w-12 h-12 rounded-xl bg-banshee-800 flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-ghost-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Actually Affordable</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Free tier that works. Paid plans from $19/mo. No enterprise sales calls required.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Teaser -->
+  <section class="py-20 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Pricing that doesn't require a funding round
+        </h2>
+        <p class="text-xl text-gray-400 mb-10">
+          Free forever tier with 100 conversations/month. Solo plan at $19/mo for growing teams. No per-seat games.
+        </p>
+        <div class="inline-flex flex-wrap items-center justify-center gap-8 text-left">
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-ghost-400"></div>
+            <span class="text-gray-300">Free — $0/mo</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-banshee-400"></div>
+            <span class="text-gray-300">Solo — $19/mo</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-banshee-300"></div>
+            <span class="text-gray-300">Team — coming soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-20 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Ready to stop screaming at your support bill?
+        </h2>
+        <p class="text-xl text-gray-400 mb-8">
+          Join the early access list and be first to try Banshee.chat.
+        </p>
+        <a
+          href={earlyAccessUrl}
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-banshee-600 to-banshee-500 hover:from-banshee-500 hover:to-banshee-400 rounded-xl font-semibold text-lg transition-all shadow-lg shadow-banshee-600/25 hover:shadow-banshee-500/40"
+        >
+          Get Early Access
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 text-center text-gray-500 text-sm">
+      <p>© 2025 Banshee.chat. All rights reserved.</p>
+    </div>
+  </footer>
+</Layout>

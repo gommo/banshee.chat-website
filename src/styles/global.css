@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-banshee-950: #0d0a1a;
+  --color-banshee-900: #1a1333;
+  --color-banshee-800: #2d2255;
+  --color-banshee-700: #4a3a8c;
+  --color-banshee-600: #6b52b3;
+  --color-banshee-500: #8b6bdb;
+  --color-banshee-400: #a88be8;
+  --color-banshee-300: #c5abf2;
+
+  --color-ghost-500: #4fd1c5;
+  --color-ghost-400: #81e6d9;
+  --color-ghost-300: #b2f5ea;
+
+  --font-display: "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-display);
+}
