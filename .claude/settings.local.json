@@ -5,7 +5,12 @@
       "Bash(npx astro:*)",
       "Bash(pnpm install)",
       "Bash(pnpm astro add:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(ls:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ]
   }
 }
