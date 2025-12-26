@@ -1,0 +1,16 @@
+---
+// Widget token from Netlify env var (PUBLIC_ prefix makes it available client-side)
+const bansheeToken = import.meta.env.PUBLIC_BANSHEE_TOKEN;
+---
+
+{bansheeToken && (
+  <>
+    <script define:vars={{ bansheeToken }}>
+      window.banshee = window.banshee || function() {
+        (window.banshee.q = window.banshee.q || []).push(Array.from(arguments));
+      };
+      banshee('init', { token: bansheeToken, position: 'bottom-right' });
+    </script>
+    <script type="module" src="https://scream.banshee.chat/widget/loader.js"></script>
+  </>
+)}
