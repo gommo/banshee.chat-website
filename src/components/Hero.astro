@@ -1,21 +1,26 @@
 ---
 import Icon from './Icon.astro';
 import InboxDemo from './InboxDemo.astro';
+import { startUrl } from '../data/pricing';
 
-const startUrl = 'https://app.banshee.chat/early-access';
+const audience = ['Microsaas', 'Indie', 'Solo founders', 'Vibe-coded apps', 'Founder-built'];
 ---
 
 <header class="hero"><div class="wrap">
   <span class="pill"><Icon name="ghost" size={15} /> One inbox for every product you ship</span>
   <h1 style="margin-top:18px">Vibe-code the product.<br><span class="banshee-wordmark">Don't vibe-code the support.</span></h1>
-  <p class="lead">Your app might be AI-built. Your customer conversations shouldn't be. Banshee runs real, human support for <b style="color:var(--foreground)">all your brands from one inbox</b>, with live translation, a visitor map, and flat, predictable pricing.</p>
+  <p class="lead">You built the products. Banshee helps you stay the human who supports them, with AI that drafts your replies and finds answers in your own docs, all from one inbox.</p>
   <div class="herocta">
     <a href={startUrl} class="btn btn-primary">Start free</a>
     <a href="/compare/intercom" class="btn btn-ghost">See why founders leave Intercom</a>
   </div>
   <div class="scripttag">Install in one line: <b>&lt;script src="https://cdn.banshee.chat/boo.js"&gt;&lt;/script&gt;</b></div>
 
-  <div style="margin-top:48px">
-    <InboxDemo />
+  <p class="hero-tagline">Built for founders shipping <b>more than one thing</b></p>
+
+  <InboxDemo />
+
+  <div class="hero-audience">
+    {audience.map((a) => <span>{a}</span>)}
   </div>
 </div></header>
