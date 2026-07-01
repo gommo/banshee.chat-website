@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/marketing.css';
+import '../../styles/inbox.css';
+
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import Icon from '../../components/Icon.astro';
+import InboxDemo from '../../components/InboxDemo.astro';
+import WorkspaceSwitcher from '../../components/WorkspaceSwitcher.astro';
+import VisitorMap from '../../components/VisitorMap.astro';
+import ChatSnippet from '../../components/ChatSnippet.astro';
+
+import { features, type Feature } from '../../data/features';
+import { startUrl } from '../../data/pricing';
+
+export function getStaticPaths() {
+  return features.map((f) => ({ params: { slug: f.slug }, props: { feature: f } }));
+}
+
+interface Props {
+  feature: Feature;
+}
+
+const { feature: f } = Astro.props;
+
+const splitVisual = f.visual === 'workspace' || f.visual === 'translate' || f.visual === 'mcp';
+const wideVisual = f.visual === 'inbox' || f.visual === 'map';
+
+const translateMsgs = [
+  { role: 'v' as const, text: "Bonjour, je n'arrive pas à connecter mon domaine.", tag: 'detected: French, auto-translated for you', avatar: '🇫🇷' },
+  { role: 'a' as const, text: 'Happy to help. Head to Settings, then Domains, and paste your CNAME there.', tag: 'you typed English, sent to the visitor in French' },
+  { role: 'v' as const, text: 'Parfait, merci !', avatar: '🇫🇷' },
+];
+
+const mcpSnippet = `<span class="c"># .mcp.json</span>
+{
+  <span class="k">"banshee"</span>: {
+    <span class="k">"command"</span>: "npx",
+    <span class="k">"args"</span>: ["-y", "@banshee/mcp"],
+    <span class="k">"env"</span>: { <span class="k">"BANSHEE_KEY"</span>: "sk_live_…" }
+  }
+}
+
+<span class="c"># then, in Claude:</span>
+<span class="k">›</span> "Summarize today's unanswered
+   conversations across all 3 brands"`;
+---
+
+<Layout title={`${f.name} | Banshee.chat`} description={f.lead}>
+  <Nav />
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <div class:list={[splitVisual && 'split']}>
+      <div>
+        <span class="pill"><Icon name={f.icon} size={15} /> {f.pill}</span>
+        <h1 style="margin-top:18px">{f.title}<br><span class="banshee-wordmark">{f.titleTail}</span></h1>
+        <p class="lead">{f.lead}</p>
+        <div class="herocta">
+          <a href={startUrl} class="btn btn-primary">Start free</a>
+          <a href="/features" class="btn btn-ghost">All features</a>
+        </div>
+      </div>
+      {f.visual === 'workspace' && <div class="panel"><WorkspaceSwitcher /></div>}
+      {f.visual === 'translate' && <div class="panel"><ChatSnippet messages={translateMsgs} /></div>}
+      {f.visual === 'mcp' && <div class="codeblock" set:html={mcpSnippet}></div>}
+    </div>
+    {wideVisual && (
+      <div style="margin-top:48px">
+        {f.visual === 'inbox' && <InboxDemo />}
+        {f.visual === 'map' && <VisitorMap />}
+      </div>
+    )}
+  </div></header>
+
+  <!-- CAPABILITIES -->
+  <Section alt eyebrow={f.name} heading={f.sectionHeading} lead={f.sectionLead}>
+    <FeatureGrid items={f.capabilities} cols={f.capabilities.length === 3 ? 3 : 2} />
+  </Section>
+
+  <!-- BULLETS -->
+  <Section>
+    <h2>{f.bulletsHeading}</h2>
+    <ul class="feat-list cols2">
+      {f.bullets.map((b) => <li><span class="ck">✓</span> {b}</li>)}
+    </ul>
+    {f.footnote && <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:16px">{f.footnote}</p>}
+  </Section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>Only banshees should be <span class="banshee-wordmark">screaming.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes, across every product you have shipped. Free to start.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>

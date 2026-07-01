@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/marketing.css';
+
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import Icon from '../../components/Icon.astro';
+
+import { solutions, type Solution } from '../../data/solutions';
+import { startUrl } from '../../data/pricing';
+
+export function getStaticPaths() {
+  return solutions.map((s) => ({ params: { slug: s.slug }, props: { solution: s } }));
+}
+
+interface Props {
+  solution: Solution;
+}
+
+const { solution: s } = Astro.props;
+---
+
+<Layout title={`Banshee.chat for ${s.name}`} description={s.lead}>
+  <Nav />
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name={s.icon} size={15} /> {s.pill}</span>
+    <h1 style="margin-top:18px">{s.title}<br><span class="banshee-wordmark">{s.titleTail}</span></h1>
+    <p class="lead">{s.lead}</p>
+    <div class="herocta">
+      <a href={startUrl} class="btn btn-primary">Start free</a>
+      <a href="/pricing" class="btn btn-ghost">See pricing</a>
+    </div>
+  </div></header>
+
+  <!-- PROBLEM -->
+  <Section alt eyebrow={s.problemEyebrow} heading={s.problemHeading} lead={s.problemLead} />
+
+  <!-- BENEFITS -->
+  <Section eyebrow="Why Banshee" heading={s.benefitsHeading}>
+    <FeatureGrid items={s.benefits} cols={3} />
+  </Section>
+
+  <!-- BULLETS -->
+  <Section alt>
+    <h2>{s.bulletsHeading}</h2>
+    <ul class="feat-list cols2">
+      {s.bullets.map((b) => <li><span class="ck">✓</span> {b}</li>)}
+    </ul>
+  </Section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>{s.ctaHeading}<br><span class="banshee-wordmark">{s.ctaTail}</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes. Free to start.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>

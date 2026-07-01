@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/marketing.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Section from '../components/Section.astro';
+import Icon from '../components/Icon.astro';
+
+// NOTE: DRAFT scaffold only. This is NOT real terms of service. Replace with
+// legally reviewed copy before publishing. Section headings are placeholders.
+const sections = [
+  { h: 'Overview', p: 'These terms will govern your use of Banshee. This is a working draft.' },
+  { h: 'Using Banshee', p: 'What you can expect from the service and what we expect from you when you use it.' },
+  { h: 'Accounts', p: 'You are responsible for your account, your agents, and keeping your credentials safe.' },
+  { h: 'Acceptable use', p: 'No unlawful, abusive, or harmful use of the service or the widget on your sites.' },
+  { h: 'Billing', p: 'Plans, renewals, and cancellation terms will be described here. Pricing is being finalized.' },
+  { h: 'Liability', p: 'Standard limitations of liability and warranty disclaimers will appear here.' },
+  { h: 'Changes', p: 'We may update these terms. Material changes will be communicated before they take effect.' },
+  { h: 'Contact', p: 'Questions about these terms? Get in touch.' },
+];
+---
+
+<Layout
+  title="Terms | Banshee.chat"
+  description="The terms that govern your use of Banshee. Working draft."
+>
+  <Nav />
+
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="ghost" size={15} /> Terms</span>
+    <h1 style="margin-top:18px">Terms of <span class="banshee-wordmark">service.</span></h1>
+  </div></header>
+
+  <Section>
+    <div class="notice" style="max-width:760px;margin-bottom:32px">
+      <span class="n-ic"><Icon name="ghost" size={18} /></span>
+      <span>Working draft. This is placeholder content and not the final, legally reviewed terms of service.</span>
+    </div>
+    <div class="prose">
+      {sections.map((s) => (
+        <div>
+          <h3>{s.h}</h3>
+          <p>{s.p}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Footer />
+</Layout>

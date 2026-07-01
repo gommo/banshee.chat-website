@@ -1,0 +1,57 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/marketing.css';
+
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import Icon from '../../components/Icon.astro';
+import { features } from '../../data/features';
+import { startUrl } from '../../data/pricing';
+---
+
+<Layout
+  title="Features | Banshee.chat"
+  description="Everything in Banshee: multi-brand, live chat, live translation, a visitor map, help center, human-first AI, analytics, omnichannel, mobile apps, and a public API plus MCP server."
+>
+  <Nav />
+
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="ghost" size={15} /> A real support platform, not a widget</span>
+    <h1 style="margin-top:18px">Everything you need to <span class="banshee-wordmark">talk to your users.</span></h1>
+    <p class="lead">Multi-brand support, live translation, a real-time visitor map, a themed help center, human-first AI and a public API with an MCP server. All in one flat, predictable plan.</p>
+    <div class="herocta">
+      <a href={startUrl} class="btn btn-primary">Start free</a>
+      <a href="/pricing" class="btn btn-ghost">See pricing</a>
+    </div>
+  </div></header>
+
+  <Section>
+    <div class="grid g3">
+      {features.map((f) => (
+        <a href={`/features/${f.slug}`} class="card feature-card">
+          <div class="ico"><Icon name={f.icon} size={20} /></div>
+          <h3>{f.name}{f.flagship && <span class="feature-flag">Flagship</span>}</h3>
+          <p>{f.overviewBlurb}</p>
+          <span class="feature-cta">Learn more</span>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <section class="finalcta"><div class="wrap">
+    <h2>Stop screaming.<br><span class="banshee-wordmark">Start talking.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes, across every product you have shipped.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+
+  <style>
+    .feature-card { display: flex; flex-direction: column; transition: border-color .15s, transform .15s; }
+    .feature-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .feature-card h3 { display: flex; align-items: center; gap: 8px; }
+    .feature-flag { font-size: var(--fs-xs); font-family: var(--font-mono); color: var(--primary); border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 1px 8px; }
+    .feature-cta { color: var(--primary); font-size: var(--fs-sm); font-weight: 600; margin-top: 14px; }
+  </style>
+</Layout>

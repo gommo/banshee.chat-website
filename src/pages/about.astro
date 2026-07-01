@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/marketing.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Section from '../components/Section.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Icon from '../components/Icon.astro';
+import { startUrl } from '../data/pricing';
+
+const values = [
+  { icon: 'user', heading: 'Human-first', body: 'A real person should answer your customers. AI does the grunt work; it does not replace the human on the reply.' },
+  { icon: 'dollar-sign', heading: 'Honest, flat pricing', body: 'No per-seat tax, no per-resolution meter, no surprise enterprise bill. You should be able to predict what support costs.' },
+  { icon: 'code', heading: 'Built for builders', body: 'A public API and an MCP server on every plan. Your support should fit your stack, not fight it.' },
+  { icon: 'ghost', heading: 'Independent', body: 'Founder-built and staying that way. Tuned for indie founders, not enterprise rollouts.' },
+];
+---
+
+<Layout
+  title="About | Banshee.chat"
+  description="Banshee is customer support built for founders running multiple products. Human-first, flat-priced, and independent."
+>
+  <Nav />
+
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="ghost" size={15} /> About Banshee</span>
+    <h1 style="margin-top:18px">Only banshees<br><span class="banshee-wordmark">should be screaming.</span></h1>
+    <p class="lead">Banshee is customer support for founders running multiple products. We built it because the tools we were told to use taxed us for shipping, and buried our customers behind a bot.</p>
+  </div></header>
+
+  <Section eyebrow="Why we built it" heading="Vibe-code the product. Do not vibe-code the support.">
+    <p class="lead" style="max-width:760px">Founders now ship a portfolio of products, fast. But the support layer stayed expensive and impersonal: per seat, per brand, per AI resolution, with a bot answering in your place. When everything else is AI-generated, the real human on the other end is what sets you apart. Banshee makes being your own support manageable, across every product you run, at one flat price.</p>
+  </Section>
+
+  <Section alt eyebrow="What we believe" heading="The principles behind Banshee.">
+    <FeatureGrid items={values} cols={2} />
+  </Section>
+
+  <section class="finalcta"><div class="wrap">
+    <h2>Stop screaming.<br><span class="banshee-wordmark">Start talking.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes, across every product you have shipped.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>

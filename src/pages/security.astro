@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/marketing.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Section from '../components/Section.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Icon from '../components/Icon.astro';
+import { startUrl } from '../data/pricing';
+
+// NOTE: placeholder security copy. Verify every specific claim (encryption,
+// email auth, hosting, subprocessors, any certifications) against reality
+// before publishing. Kept high-level and honest for now.
+const practices = [
+  { icon: 'ghost', heading: 'Encryption in transit', body: 'Traffic between your customers, the widget and Banshee is encrypted over HTTPS.' },
+  { icon: 'mail', heading: 'Authenticated email', body: 'Reply-by-email is sent with DKIM, SPF and DMARC so your transcripts land and are not spoofed.' },
+  { icon: 'user', heading: 'Your data is yours', body: 'Export your conversations and contacts at any time. No lock-in, no Hotel California.' },
+  { icon: 'layers', heading: 'Access controls', body: 'Per-workspace access so each brand and agent only sees what they should.' },
+];
+---
+
+<Layout
+  title="Security | Banshee.chat"
+  description="How Banshee approaches security and your data: encryption in transit, authenticated email, data portability and access controls."
+>
+  <Nav />
+
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="ghost" size={15} /> Security and data</span>
+    <h1 style="margin-top:18px">Your customers trust you.<br><span class="banshee-wordmark">We take that seriously.</span></h1>
+    <p class="lead">How we handle security and your data. If you need specifics, a data processing agreement, or a list of subprocessors, get in touch and we will walk you through it.</p>
+  </div></header>
+
+  <Section eyebrow="How we handle it" heading="Security, in plain terms.">
+    <FeatureGrid items={practices} cols={2} />
+  </Section>
+
+  <Section alt>
+    <div class="center" style="margin-bottom:0">
+      <span class="eyebrow">Questions</span>
+      <p class="lead" style="margin-top:14px">Security and privacy questions are welcome. Contact us for a data processing agreement, subprocessor list, or anything your review needs.</p>
+    </div>
+  </Section>
+
+  <section class="finalcta"><div class="wrap">
+    <h2>Support you can <span class="banshee-wordmark">trust.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes. Free to start.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>

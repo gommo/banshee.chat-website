@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/marketing.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Section from '../components/Section.astro';
+import Icon from '../components/Icon.astro';
+import { startUrl } from '../data/pricing';
+
+// NOTE: changelog scaffold. Do not ship invented release history. Wire this to
+// the real changelog source before publishing.
+---
+
+<Layout
+  title="Changelog | Banshee.chat"
+  description="What is new in Banshee. We ship often."
+>
+  <Nav />
+
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="sparkles" size={15} /> Changelog</span>
+    <h1 style="margin-top:18px">What is <span class="banshee-wordmark">new.</span></h1>
+    <p class="lead">We build in public and ship often. The full changelog is coming here soon.</p>
+  </div></header>
+
+  <Section>
+    <div class="notice" style="max-width:760px">
+      <span class="n-ic"><Icon name="ghost" size={18} /></span>
+      <span>Changelog entries will be published here. Want to follow along? Start free and you will see new features land in the app.</span>
+    </div>
+  </Section>
+
+  <section class="finalcta"><div class="wrap">
+    <h2>Stop screaming.<br><span class="banshee-wordmark">Start talking.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>

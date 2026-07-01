@@ -51,6 +51,7 @@ h2{font-size:var(--fs-4xl);margin-bottom:16px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
 .panel{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-xl);padding:22px}
 .feat-list{list-style:none;margin-top:18px;display:grid;gap:12px;padding:0}
+.feat-list.cols2{grid-template-columns:1fr 1fr;gap:12px 28px}
 .feat-list li{display:flex;gap:10px;font-size:var(--fs-base);color:var(--foreground)}
 .feat-list .ck{color:var(--primary)}
 
@@ -106,6 +107,12 @@ h2{font-size:var(--fs-4xl);margin-bottom:16px}
 .price li b{color:var(--foreground);font-weight:600}
 .badge{align-self:flex-start;font-size:var(--fs-xs);font-family:var(--font-mono);color:var(--primary-foreground);background:var(--primary);padding:3px 9px;border-radius:var(--radius-pill);margin-bottom:8px}
 
+.notice{display:flex;align-items:center;gap:10px;background:color-mix(in oklch,var(--warning) 10%,transparent);border:1px solid color-mix(in oklch,var(--warning) 40%,var(--border));color:var(--foreground);border-radius:var(--radius-md);padding:12px 16px;font-size:var(--fs-sm)}
+.notice .n-ic{color:var(--warning);flex:none}
+.prose{max-width:760px;display:grid;gap:22px}
+.prose h3{font-size:var(--fs-xl);margin-bottom:6px}
+.prose p{color:var(--muted-foreground);font-size:var(--fs-base)}
+.prose .sub{color:var(--muted-foreground)}
 .finalcta{text-align:center;background:linear-gradient(180deg,var(--banshee-bg-soft),var(--background));border-top:1px solid var(--border)}
 .finalcta h2{font-size:var(--fs-5xl)}
 .site-footer{border-top:1px solid var(--border);padding:48px 0;color:var(--muted-foreground);font-size:var(--fs-sm)}
@@ -115,6 +122,6 @@ h2{font-size:var(--fs-4xl);margin-bottom:16px}
 
 @media(max-width:900px){
   .hero h1{font-size:var(--fs-4xl)}
-  .herovis,.split,.g3,.g2,.prices{grid-template-columns:1fr!important}
+  .herovis,.split,.g3,.g2,.prices,.feat-list.cols2{grid-template-columns:1fr!important}
   h2{font-size:var(--fs-3xl)}.navlinks{display:none}.finalcta h2{font-size:var(--fs-4xl)}
 }
