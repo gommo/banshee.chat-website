@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/marketing.css';
+
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import Icon from '../../components/Icon.astro';
+
+import { comparisons } from '../../data/comparisons';
+
+const startUrl = 'https://app.banshee.chat/early-access';
+---
+
+<Layout
+  title="Compare Banshee vs Intercom, Crisp, Zendesk and Tawk.to"
+  description="Honest, side-by-side comparisons of Banshee against Intercom, Crisp, Zendesk and Tawk.to for founders running one or more products."
+>
+  <Nav />
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="ghost" size={15} /> The honest comparisons</span>
+    <h1 style="margin-top:18px">How Banshee <span class="banshee-wordmark">compares</span></h1>
+    <p class="lead">Flat, predictable, human-first support for founders running one or more products. Here is how that stacks up against the tools you are probably weighing, with public figures and no spin.</p>
+    <div class="herocta">
+      <a href={startUrl} class="btn btn-primary">Start free</a>
+      <a href="/#pricing" class="btn btn-ghost">See pricing</a>
+    </div>
+  </div></header>
+
+  <!-- COMPARISON CARDS -->
+  <Section>
+    <div class="grid g2">
+      {comparisons.map((c) => (
+        <a href={`/compare/${c.slug}`} class="card compare-card">
+          <div class="compare-card-head">
+            <h3>Banshee vs {c.name}</h3>
+            <span class="compare-card-arrow"><Icon name="chevron-down" size={18} /></span>
+          </div>
+          <p>{c.hubBlurb}</p>
+          <span class="compare-card-cta">See the comparison</span>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>Stop screaming.<br><span class="banshee-wordmark">Start talking.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Only banshees should be screaming. Add one script tag and start talking to your users in minutes, across every product you have shipped.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+
+  <style>
+    .compare-card { display: flex; flex-direction: column; gap: 12px; transition: border-color .15s, transform .15s; }
+    .compare-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .compare-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .compare-card-arrow { color: var(--muted-foreground); transform: rotate(-90deg); transition: color .15s; }
+    .compare-card:hover .compare-card-arrow { color: var(--primary); }
+    .compare-card-cta { color: var(--primary); font-size: var(--fs-sm); font-weight: 600; margin-top: 4px; }
+  </style>
+</Layout>

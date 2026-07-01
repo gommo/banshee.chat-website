@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/marketing.css';
+
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import Icon from '../../components/Icon.astro';
+
+import { comparisons, type Comparison } from '../../data/comparisons';
+
+export function getStaticPaths() {
+  return comparisons.map((c) => ({ params: { slug: c.slug }, props: { comparison: c } }));
+}
+
+interface Props {
+  comparison: Comparison;
+}
+
+const { comparison } = Astro.props;
+const c = comparison;
+const startUrl = 'https://app.banshee.chat/early-access';
+
+const tableRows = c.rows.map((row) => ({
+  label: row.label,
+  cells: [
+    { text: row.banshee, variant: 'us' as const },
+    { text: row.them, variant: row.themBad ? ('bad' as const) : undefined },
+  ],
+}));
+
+const title = `Banshee vs ${c.name}: the honest comparison`;
+const description = c.lead;
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <a href="/compare" class="eyebrow" style="display:inline-block;margin-bottom:16px">← All comparisons</a>
+    <span class="pill"><Icon name="ghost" size={15} /> {c.pill}</span>
+    <h1 style="margin-top:18px">Banshee <span class="banshee-wordmark">vs {c.name}</span></h1>
+    <p class="lead">{c.lead}</p>
+    <div class="herocta">
+      <a href={startUrl} class="btn btn-primary">Start free</a>
+      <a href="/#pricing" class="btn btn-ghost">See pricing</a>
+    </div>
+  </div></header>
+
+  <!-- THE PROBLEM -->
+  <Section
+    alt
+    eyebrow={c.problemEyebrow}
+    heading={c.problemHeading}
+    lead={c.problemLead}
+  />
+
+  <!-- COMPARISON TABLE -->
+  <Section eyebrow="Side by side" heading={`Banshee vs ${c.name}, feature by feature.`}>
+    <div style="margin-top:24px">
+      <ComparisonTable columns={['Banshee', c.name]} rows={tableRows} />
+    </div>
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:12px">{c.footnote}</p>
+  </Section>
+
+  <!-- WHY SWITCH -->
+  <Section alt eyebrow="The founder case" heading={c.switchHeading}>
+    <FeatureGrid items={c.switchCards} cols={3} />
+  </Section>
+
+  <!-- FAIRNESS -->
+  <Section>
+    <div class="center" style="margin-bottom:0">
+      <span class="eyebrow">Credit where it is due</span>
+      <p class="lead" style="margin-top:14px">{c.fairness}</p>
+    </div>
+  </Section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>Make the switch from {c.name}.<br><span class="banshee-wordmark">Only banshees should be screaming.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes, across every product you have shipped. Free to start.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>
