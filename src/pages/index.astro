@@ -11,7 +11,7 @@ import ChatSnippet from '../components/ChatSnippet.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
 import Pricing from '../components/Pricing.astro';
 import VisitorMap from '../components/VisitorMap.astro';
-import WorkspaceSwitcher from '../components/WorkspaceSwitcher.astro';
+import ProductsPanel from '../components/ProductsPanel.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import { tiers, startUrl } from '../data/pricing';
@@ -116,17 +116,17 @@ const testimonials = [
     <div class="split">
       <div>
         <span class="eyebrow">Multi-brand · included on Solo</span>
-        <h2>Every product. One inbox.</h2>
-        <p class="lead">Each brand gets its own widget, colors, logo, help center and email branding. You run them all from a single dashboard, as a team of one.</p>
+        <h2>Every product. One workspace.</h2>
+        <p class="lead">Each product gets its own widget, channels, colors, logo, help center and email branding. They all live in one workspace, so you support everything you've shipped from a single login.</p>
         <ul class="feat-list">
-          <li><span class="ck">✓</span> Per-brand widget, greeting, and topics</li>
-          <li><span class="ck">✓</span> Per-brand help center on your own domain (help.yourbrand.com)</li>
-          <li><span class="ck">✓</span> Per-brand email branding on transcripts and CSAT</li>
-          <li><span class="ck">✓</span> Switch brands from the workspace picker, no re-login</li>
+          <li><span class="ck">✓</span> Each product has its own widget, channels and branding</li>
+          <li><span class="ck">✓</span> A help center per product, on its own domain (help.yourbrand.com)</li>
+          <li><span class="ck">✓</span> Per-product email branding on transcripts and CSAT</li>
+          <li><span class="ck">✓</span> Conversations route by the topics you configure, into the inboxes you set up</li>
         </ul>
       </div>
       <div class="panel">
-        <WorkspaceSwitcher />
+        <ProductsPanel />
       </div>
     </div>
   </Section>

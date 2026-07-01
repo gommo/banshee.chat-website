@@ -79,7 +79,7 @@ export const solutions: Solution[] = [
     benefitsHeading: 'Why agencies pick Banshee',
     benefits: [
       { icon: 'layers', heading: 'True multi-brand', body: 'Each client gets its own widget, colors, help center domain and email branding.' },
-      { icon: 'ghost', heading: 'One dashboard', body: 'Switch between clients from the workspace picker. No re-login, one bill.' },
+      { icon: 'ghost', heading: 'One workspace', body: 'Every client lives in one workspace with its own widget, branding and inboxes. One login, one bill.' },
       { icon: 'send', heading: 'One script tag per site', body: 'Deploy the widget on any stack in a minute, no SDK wrangling.' },
       { icon: 'book-open', heading: 'Help center per client', body: 'A themed knowledge base on each client domain, SEO sitemap included.' },
       { icon: 'users', heading: 'Assign per client', body: 'Route conversations to the right person, keep clients cleanly separated.' },

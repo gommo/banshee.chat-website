@@ -9,7 +9,7 @@ import Section from '../../components/Section.astro';
 import FeatureGrid from '../../components/FeatureGrid.astro';
 import Icon from '../../components/Icon.astro';
 import InboxDemo from '../../components/InboxDemo.astro';
-import WorkspaceSwitcher from '../../components/WorkspaceSwitcher.astro';
+import ProductsPanel from '../../components/ProductsPanel.astro';
 import VisitorMap from '../../components/VisitorMap.astro';
 import ChatSnippet from '../../components/ChatSnippet.astro';
 
@@ -64,7 +64,7 @@ const mcpSnippet = `<span class="c"># .mcp.json</span>
           <a href="/features" class="btn btn-ghost">All features</a>
         </div>
       </div>
-      {f.visual === 'workspace' && <div class="panel"><WorkspaceSwitcher /></div>}
+      {f.visual === 'workspace' && <div class="panel"><ProductsPanel /></div>}
       {f.visual === 'translate' && <div class="panel"><ChatSnippet messages={translateMsgs} /></div>}
       {f.visual === 'mcp' && <div class="codeblock" set:html={mcpSnippet}></div>}
     </div>

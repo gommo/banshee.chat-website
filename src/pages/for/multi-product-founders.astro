@@ -8,7 +8,7 @@ import Footer from '../../components/Footer.astro';
 import Section from '../../components/Section.astro';
 import FeatureGrid from '../../components/FeatureGrid.astro';
 import Pricing from '../../components/Pricing.astro';
-import WorkspaceSwitcher from '../../components/WorkspaceSwitcher.astro';
+import ProductsPanel from '../../components/ProductsPanel.astro';
 import Icon from '../../components/Icon.astro';
 import { tiers, startUrl } from '../../data/pricing';
 
@@ -22,7 +22,7 @@ const multiBrand = [
   { icon: 'ghost', heading: 'Per-brand widget', body: 'Each product gets its own widget, colors, greeting and topics. Your customers never see another brand.' },
   { icon: 'book-open', heading: 'Help center on your domain', body: 'A themed, searchable knowledge base per brand on help.yourbrand.com, SEO sitemap included.' },
   { icon: 'mail', heading: 'Per-brand email branding', body: 'Transcripts, CSAT surveys and follow-ups all go out branded as the product they belong to.' },
-  { icon: 'layers', heading: 'One login, every brand', body: 'Switch products from the workspace picker. No separate accounts, no re-login, one bill.' },
+  { icon: 'layers', heading: 'One workspace, every product', body: 'All your products in one workspace. One login, no separate accounts, one bill.' },
   { icon: 'languages', heading: 'Live translation everywhere', body: 'Two-way translation across 100+ languages on every brand, so global customers get answered in their language.' },
   { icon: 'map-pin', heading: 'One visitor map', body: 'See who is live across all your products at once, with page history and location.' },
 ];
@@ -47,7 +47,7 @@ const multiBrand = [
         </div>
       </div>
       <div class="panel">
-        <WorkspaceSwitcher />
+        <ProductsPanel />
       </div>
     </div>
   </div></header>

@@ -1,0 +1,27 @@
+---
+// The multi-product panel: all your products live in one workspace, each with
+// its own brand and channels. Conversations route by topic into your inboxes;
+// there is no workspace or brand switching. Anonymized placeholder products.
+interface Product {
+  initials: string;
+  name: string;
+  channels: string;
+  gradient?: string;
+}
+
+const products: Product[] = [
+  { initials: 'OW', name: 'Old World Rankings', channels: 'Widget · Email · WhatsApp' },
+  { initials: 'Le', name: 'Ledgerly', channels: 'Widget · Email', gradient: 'linear-gradient(135deg,#f59e0b,#ef4444)' },
+  { initials: 'Po', name: 'Postcards', channels: 'Widget · SMS', gradient: 'linear-gradient(135deg,#818cf8,#22d3ee)' },
+];
+---
+
+<div style="font-size:var(--fs-xs);color:var(--muted-foreground);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Products · one workspace</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+  {products.map((p) => (
+    <div class="ib-ws" style="border:1px solid var(--border);border-radius:var(--radius-md)">
+      <div class="ib-ws-icon" style={p.gradient ? `background:${p.gradient};color:#fff` : undefined}>{p.initials}</div>
+      <div><div class="ib-ws-name">{p.name}</div><div class="ib-ws-sub">{p.channels}</div></div>
+    </div>
+  ))}
+</div>
