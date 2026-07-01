@@ -1,0 +1,40 @@
+---
+// Pricing tiers. Figures are kept indicative until billing.rake is locked.
+// Each tier: { name, price, suffix?, badge?, hot?, features[], cta }.
+// Feature strings may contain inline HTML (e.g. <b>Multi-brand</b>).
+interface Cta {
+  label: string;
+  href: string;
+  variant: 'primary' | 'ghost';
+}
+
+interface Tier {
+  name: string;
+  price: string;
+  suffix?: string;
+  badge?: string;
+  hot?: boolean;
+  features: string[];
+  cta: Cta;
+}
+
+interface Props {
+  tiers: Tier[];
+}
+
+const { tiers } = Astro.props;
+---
+
+<div class="prices">
+  {tiers.map((tier) => (
+    <div class={tier.hot ? 'price hot' : 'price'}>
+      {tier.badge && <div class="badge">{tier.badge}</div>}
+      <div class="pn">{tier.name}</div>
+      <div class="pp">{tier.price}{tier.suffix && <small>{tier.suffix}</small>}</div>
+      <ul>
+        {tier.features.map((feat) => <li set:html={feat} />)}
+      </ul>
+      <a href={tier.cta.href} class={`btn btn-${tier.cta.variant}`} style="justify-content:center">{tier.cta.label}</a>
+    </div>
+  ))}
+</div>

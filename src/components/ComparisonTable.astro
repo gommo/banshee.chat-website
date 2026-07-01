@@ -1,0 +1,38 @@
+---
+// Honest comparison table. `columns` is the header row (the first column is
+// "us" / Banshee and gets the mint treatment). `rows` is a list of
+// { label, cells } where each cell is { text, variant?: 'us' | 'bad' }.
+interface Cell {
+  text: string;
+  variant?: 'us' | 'bad';
+}
+
+interface Row {
+  label: string;
+  cells: Cell[];
+}
+
+interface Props {
+  columns: string[];
+  rows: Row[];
+}
+
+const { columns, rows } = Astro.props;
+---
+
+<table class="cmp">
+  <thead>
+    <tr>
+      <th></th>
+      {columns.map((col, i) => <th class={i === 0 ? 'us' : undefined}>{col}</th>)}
+    </tr>
+  </thead>
+  <tbody>
+    {rows.map((row) => (
+      <tr>
+        <td>{row.label}</td>
+        {row.cells.map((cell) => <td class={cell.variant}>{cell.text}</td>)}
+      </tr>
+    ))}
+  </tbody>
+</table>

@@ -7,7 +7,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "AI-powered customer chat for startups and small teams. Lightweight, affordable, and actually useful." } = Astro.props;
+const { title, description = "The support inbox for founders running multiple products. Real human support for all your brands from one inbox, with live translation, a visitor map, and flat, predictable pricing." } = Astro.props;
 const gaId = import.meta.env.PUBLIC_GA_ID;
 ---
 
@@ -21,7 +21,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <title>{title}</title>
     {gaId && (
       <>
@@ -35,7 +35,7 @@ const gaId = import.meta.env.PUBLIC_GA_ID;
       </>
     )}
   </head>
-  <body class="bg-banshee-bg text-banshee-text antialiased">
+  <body>
     <slot />
     <BansheeWidget />
   </body>

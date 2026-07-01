@@ -1,0 +1,37 @@
+---
+// Section wrapper: optional eyebrow / heading / lead header (centered or
+// left-aligned) plus a slot for the body. Pass `alt` for the dark-soft
+// background. When the header lives inside a custom layout (e.g. a split
+// column), omit the header props and render everything through the slot.
+interface Props {
+  id?: string;
+  alt?: boolean;
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  center?: boolean;
+  class?: string;
+}
+
+const { id, alt, eyebrow, heading, lead, center, class: className } = Astro.props;
+const hasHeader = Boolean(eyebrow || heading || lead);
+const sectionClass = [alt ? 'alt' : '', className].filter(Boolean).join(' ') || undefined;
+---
+
+<section id={id} class={sectionClass}><div class="wrap">
+  {hasHeader && center && (
+    <div class="center">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      {heading && <h2><Fragment set:html={heading} /></h2>}
+      {lead && <p class="lead">{lead}</p>}
+    </div>
+  )}
+  {hasHeader && !center && (
+    <Fragment>
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      {heading && <h2><Fragment set:html={heading} /></h2>}
+      {lead && <p class="lead">{lead}</p>}
+    </Fragment>
+  )}
+  <slot />
+</div></section>

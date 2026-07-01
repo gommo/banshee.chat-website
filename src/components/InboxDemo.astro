@@ -1,0 +1,117 @@
+---
+// Faithful, anonymized replica of the real Banshee agent inbox
+// (app.banshee.chat). Styling lives in src/styles/inbox.css. All data here is
+// anonymized placeholder content; keep it matching the real app's layout.
+import Icon from './Icon.astro';
+---
+
+<div class="ib-app">
+  <div class="ib-side">
+    <div class="ib-ws">
+      <div class="ib-ws-icon">OW</div>
+      <div><div class="ib-ws-name">Old World Rankings</div><div class="ib-ws-sub">Workspace</div></div>
+      <span class="ib-ws-chev"><Icon name="chevrons-up-down" size={14} /></span>
+    </div>
+    <div class="ib-nav">
+      <div class="ib-nav-item on"><Icon name="inbox" size={16} /> <span>Inbox</span><span class="ib-badge hot">8</span></div>
+      <div class="ib-sub">
+        <div class="ib-sub-item">All Inboxes <span class="ib-badge">8</span></div>
+        <div class="ib-sub-item on">Support <span class="ib-badge">8</span></div>
+      </div>
+      <div class="ib-nav-item"><Icon name="map-pin" size={16} /> <span>Visitors</span><span class="ib-badge mint">27</span></div>
+      <div class="ib-nav-item"><Icon name="users" size={16} /> <span>Contacts</span><span class="ib-badge mint">99+</span></div>
+      <div class="ib-nav-item"><Icon name="bar-chart" size={16} /> <span>Analytics</span></div>
+      <div class="ib-nav-item"><Icon name="book-open" size={16} /> <span>Help center</span></div>
+      <div class="ib-nav-item"><Icon name="settings" size={16} /> <span>Settings</span></div>
+    </div>
+    <div class="ib-foot"><span class="ib-foot-dot"></span><div><div class="ib-foot-name">Online</div><div class="ib-foot-sub">Available for chats</div></div></div>
+  </div>
+
+  <div class="ib-list">
+    <div class="ib-list-head">
+      <div class="ib-list-row"><span class="ib-dd"><Icon name="folder" size={14} /> Unresolved <Icon name="chevron-down" size={13} /></span><span class="ib-open">8 open</span></div>
+      <div class="ib-search"><Icon name="search" size={14} /> Search conversations...</div>
+    </div>
+    <div class="ib-list-body">
+      <div class="ib-conv on">
+        <div class="ib-av">🇫🇷</div>
+        <div class="ib-cbody">
+          <div class="ib-crow"><span class="ib-cname">Visitor 4f2a9c</span><span class="ib-ctime">6d</span></div>
+          <div class="ib-cprev"><span class="you">You:</span> Yeah, it doesn't look like I can get results apart from ranking order</div>
+          <div class="ib-cmeta"><span class="sdot"></span><span class="ib-cmail">Colin G.</span></div>
+        </div>
+      </div>
+      <div class="ib-conv">
+        <div class="ib-av">TJ</div>
+        <div class="ib-cbody">
+          <div class="ib-crow"><span class="ib-cname">Taylor J.</span><span class="ib-ctime">2d</span></div>
+          <div class="ib-cprev">Testing this out</div>
+          <div class="ib-cmeta"><span class="sdot"></span><span class="ib-cmail">taylor.j@example.com</span></div>
+        </div>
+      </div>
+      <div class="ib-conv">
+        <div class="ib-av g2">AM</div>
+        <div class="ib-cbody">
+          <div class="ib-crow"><span class="ib-cname">Alex M.</span><span class="ib-ctime">23 Jun</span></div>
+          <div class="ib-cprev"><span class="you">You:</span> Follow-up email sent</div>
+          <div class="ib-cmeta"><span class="sdot"></span><span class="ib-cmail">alex.m@example.com</span></div>
+        </div>
+      </div>
+      <div class="ib-conv">
+        <div class="ib-av g3">AS</div>
+        <div class="ib-cbody">
+          <div class="ib-crow"><span class="ib-cname">Andi S.</span><span class="ib-ctime">23 Jun</span></div>
+          <div class="ib-cprev">Cool, thanks for the heads up and the effort re-investigating</div>
+          <div class="ib-cmeta"><span class="sdot"></span><span class="ib-cmail">andi.s@example.de</span></div>
+        </div>
+      </div>
+      <div class="ib-conv">
+        <div class="ib-av">PL</div>
+        <div class="ib-cbody">
+          <div class="ib-crow"><span class="ib-cname">Paul L.</span><span class="ib-ctime">18 Jun</span></div>
+          <div class="ib-cprev">Hi, I went to this event at the weekend and it used</div>
+          <div class="ib-cmeta"><span class="sdot"></span><span class="ib-cmail">paul.l@example.co.uk</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ib-thread">
+    <div class="ib-th-head">
+      <div class="ib-th-id">
+        <div class="ib-av">🇫🇷</div>
+        <div><div class="ib-th-name">Visitor 4f2a9c</div><div class="ib-th-seen">Last seen 24/06/2026, 16:05</div></div>
+      </div>
+      <div class="ib-th-actions"><span class="ib-assignee"><Icon name="user" size={14} /> Colin G.</span><span class="ib-unresolved">● Unresolved</span></div>
+    </div>
+    <div class="ib-translatebar">
+      <span class="ib-flag">🇫🇷 French</span>
+      <span class="lt"><Icon name="languages" size={14} /> LiveTranslate On</span>
+      <span class="stop">Stop</span>
+    </div>
+    <div class="ib-msgs">
+      <div class="ib-msg v">
+        <div class="ib-bubble">Here are the links to all the tournaments concerned. If you need the number of wins and losses plus my decklist for each one, I have them!</div>
+        <div class="ib-mmeta"><span>🇫🇷 FR</span><span class="tr">Translated from French</span><span>16:04</span></div>
+      </div>
+      <div class="ib-msg a">
+        <div class="ib-bubble">Hello, yes at this stage we don't integrate to T3. It's something we're considering though. I think when we first looked at it, it didn't include faction or round-by-round results.</div>
+        <div class="ib-mmeta"><span class="tr"><Icon name="languages" size={12} /> Translated to French</span><span>Colin G. · 16:05</span></div>
+      </div>
+      <div class="ib-sys">Assigned to Colin G.</div>
+      <div class="ib-msg a">
+        <div class="ib-bubble">Yeah, it doesn't look like I can even get results apart from ranking order from T3? Seems strange for a tournament system.</div>
+        <div class="ib-mmeta"><span class="tr"><Icon name="languages" size={12} /> Translated to French</span><span>Colin G. · 21:20</span></div>
+      </div>
+    </div>
+    <div class="ib-composer">
+      <div class="ib-comp-note"><span class="tr"><Icon name="languages" size={13} /> Translating to French</span><span>Your message will be translated before sending</span></div>
+      <div class="ib-suggest">
+        <span class="ib-chip pick"><Icon name="sparkles" size={12} /> Ah, no worries, I'll take a look at those T3 links</span>
+        <span class="ib-chip">That should be sorted now mate</span>
+        <span class="ib-chip">That's all sorted</span>
+      </div>
+      <div class="ib-comp-input"><Icon name="paperclip" size={16} /> <Icon name="smile" size={16} /> <Icon name="image" size={16} /> <span style="flex:1">Type in your language, it will translate to French...</span><span class="ib-send"><Icon name="send" size={15} /></span></div>
+    </div>
+  </div>
+</div>

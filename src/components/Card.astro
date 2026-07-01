@@ -1,0 +1,19 @@
+---
+// Feature/problem card: an icon tile, a heading, and body copy. Body can be
+// passed as `body` (allows inline HTML) or via the default slot.
+import Icon from './Icon.astro';
+
+interface Props {
+  icon?: string;
+  heading: string;
+  body?: string;
+}
+
+const { icon, heading, body } = Astro.props;
+---
+
+<div class="card">
+  {icon && <div class="ico"><Icon name={icon} size={20} /></div>}
+  <h3>{heading}</h3>
+  {body ? <p set:html={body} /> : <p><slot /></p>}
+</div>

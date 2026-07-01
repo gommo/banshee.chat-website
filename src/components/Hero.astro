@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+import InboxDemo from './InboxDemo.astro';
+
+const startUrl = 'https://app.banshee.chat/early-access';
+---
+
+<header class="hero"><div class="wrap">
+  <span class="pill"><Icon name="ghost" size={15} /> One inbox for every product you ship</span>
+  <h1 style="margin-top:18px">Vibe-code the product.<br><span class="banshee-wordmark">Don't vibe-code the support.</span></h1>
+  <p class="lead">Your app might be AI-built. Your customer conversations shouldn't be. Banshee runs real, human support for <b style="color:var(--foreground)">all your brands from one inbox</b>, with live translation, a visitor map, and flat, predictable pricing.</p>
+  <div class="herocta">
+    <a href={startUrl} class="btn btn-primary">Start free</a>
+    <a href="/#compare" class="btn btn-ghost">See why founders leave Intercom</a>
+  </div>
+  <div class="scripttag">Install in one line: <b>&lt;script src="https://cdn.banshee.chat/boo.js"&gt;&lt;/script&gt;</b></div>
+
+  <div style="margin-top:48px">
+    <InboxDemo />
+  </div>
+</div></header>

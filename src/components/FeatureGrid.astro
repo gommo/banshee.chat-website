@@ -1,0 +1,24 @@
+---
+// Grid of feature cards. Pass `items` (icon + heading + body) and a column
+// count (2 or 3).
+import Card from './Card.astro';
+
+interface Item {
+  icon?: string;
+  heading: string;
+  body: string;
+}
+
+interface Props {
+  items: Item[];
+  cols?: 2 | 3;
+}
+
+const { items, cols = 3 } = Astro.props;
+---
+
+<div class={`grid g${cols}`} style="margin-top:36px">
+  {items.map((item) => (
+    <Card icon={item.icon} heading={item.heading} body={item.body} />
+  ))}
+</div>

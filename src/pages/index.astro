@@ -1,372 +1,268 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import '../styles/marketing.css';
+import '../styles/inbox.css';
 
-const earlyAccessUrl = "https://app.banshee.chat/early-access";
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import ChatSnippet from '../components/ChatSnippet.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import Pricing from '../components/Pricing.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+
+const startUrl = 'https://app.banshee.chat/early-access';
+
+// Rendered via set:html because the literal { } braces collide with Astro's
+// expression syntax.
+const mcpSnippet = `<span class="c"># .mcp.json</span>
+{
+  <span class="k">"banshee"</span>: {
+    <span class="k">"command"</span>: "npx",
+    <span class="k">"args"</span>: ["-y", "@banshee/mcp"],
+    <span class="k">"env"</span>: { <span class="k">"BANSHEE_KEY"</span>: "sk_live_…" }
+  }
+}
+
+<span class="c"># then, in Claude:</span>
+<span class="k">›</span> "Summarize today's unanswered
+   conversations across all 3 brands"`;
+
+const founderTax = [
+  { icon: 'dollar-sign', heading: 'The per-seat tax', body: 'Intercom runs multi-brand only on its Expert plan, about <b style="color:var(--foreground)">$132 / seat / month</b>. Add a brand, add a bill.' },
+  { icon: 'bot', heading: 'The resolution tax', body: 'Bots answer for you at <b style="color:var(--foreground)">$0.99 per AI resolution</b>, an unpredictable bill that grows with your success.' },
+  { icon: 'layers', heading: 'The workspace tax', body: 'Most tools make you spin up a separate account or workspace per product. More logins, more invoices, more chaos.' },
+];
+
+const featureGrid = [
+  { icon: 'book-open', heading: 'Help center and theme studio', body: 'Searchable knowledge base on your own domain, fully themed, SEO sitemap included.' },
+  { icon: 'mail', heading: 'Omnichannel', body: 'Web widget, reply-by-email, WhatsApp and SMS. Every channel lands in one thread.' },
+  { icon: 'bar-chart', heading: 'Analytics suite', body: 'Response times, CSAT, heatmaps, channel mix, top countries, agent leaderboard.' },
+  { icon: 'smartphone', heading: 'iOS and Android apps', body: 'Full inbox in your pocket. Get pinged, reply from anywhere.' },
+  { icon: 'star', heading: 'CSAT and follow-ups', body: 'Auto satisfaction surveys and follow-up emails, branded per product.' },
+  { icon: 'code', heading: 'API and MCP server', body: 'On every plan. Public REST API and an MCP server that turns support into tools for your AI agents.' },
+];
+
+const compareColumns = ['Banshee', 'Intercom', 'Crisp'];
+const compareRows = [
+  { label: 'Multiple brands', cells: [{ text: 'From Solo (cheap tier)', variant: 'us' }, { text: 'Expert plan, about $132/seat', variant: 'bad' }, { text: 'Multi-site from €45/mo' }] },
+  { label: 'AI billing', cells: [{ text: 'Included, no per-resolution meter', variant: 'us' }, { text: '$0.99 / AI resolution', variant: 'bad' }, { text: 'Usage-based add-ons' }] },
+  { label: 'Live translation', cells: [{ text: 'Two-way, base plans', variant: 'us' }, { text: 'Add-on or higher tiers' }, { text: 'Limited' }] },
+  { label: 'API and MCP', cells: [{ text: 'Every plan, even Free', variant: 'us' }, { text: 'Higher tiers' }, { text: 'Add-on' }] },
+  { label: 'Pricing shape', cells: [{ text: 'Flat, predictable', variant: 'us' }, { text: 'Per-seat plus usage', variant: 'bad' }, { text: 'Per-workspace' }] },
+];
+
+const pricingTiers = [
+  {
+    name: 'Free', price: '$0',
+    features: ['<b>1</b> brand, <b>1</b> inbox', '<b>100</b> conversations / mo', 'Widget and help center', 'iOS and Android apps', 'API and MCP server'],
+    cta: { label: 'Start free', href: startUrl, variant: 'ghost' },
+  },
+  {
+    name: 'Solo', price: '$19', suffix: '/mo', badge: 'For multi-product founders', hot: true,
+    features: ['<b>Multi-brand</b>, all your products', '<b>3</b> agents, <b>3</b> inboxes', '<b>1,000</b> conversations / mo', 'AI live translation', 'API and MCP server'],
+    cta: { label: 'Start free, upgrade later', href: startUrl, variant: 'primary' },
+  },
+  {
+    name: 'Team', price: '$49', suffix: '/mo',
+    features: ['<b>Unlimited</b> agents (within reason)', 'Unlimited inboxes and conversations', 'Remove Banshee branding', 'Priority support'],
+    cta: { label: 'Choose Team', href: startUrl, variant: 'ghost' },
+  },
+];
+
+const translationExchange = [
+  { role: 'v', text: "Bonjour, je n'arrive pas à connecter mon domaine.", tag: 'detected: French, auto-translated for you' },
+  { role: 'a', text: 'Happy to help. Head to Settings, then Domains, and paste your CNAME there.', tag: 'you typed English, sent to the visitor in French' },
+  { role: 'v', text: 'Parfait, merci !' },
+];
+
+const testimonials = [
+  [
+    { role: 'v', text: 'how does the scoring actually work?' },
+    { role: 'v', text: 'oh wait, is this a person? thought it was automated 😅' },
+    { role: 'v', text: "I can look it up, don't mean to waste your time!" },
+    { role: 'a', text: 'haha not at all, real human here 🙂' },
+  ],
+  [
+    { role: 'v', text: 'do you have an app?' },
+    { role: 'v', text: 'oh, sorry for the blunt message, was expecting a chatbot!' },
+    { role: 'a', text: 'haha no worries at all 👋 apps are on the way too' },
+  ],
+  [
+    { role: 'v', text: 'how are points calculated?' },
+    { role: 'v', text: 'scrap that, thought this was AI…' },
+    { role: 'a', text: 'nope, real human 🙂 happy to walk you through it' },
+  ],
+  [
+    { role: 'v', text: 'thanks for sorting my account before the event tomorrow, just in case this goes to a real person' },
+    { role: 'a', text: "it does 🙂 I'll be there too, I'll say hi" },
+  ],
+];
 ---
 
-<Layout title="Banshee.chat — Customer chat that doesn't break the bank">
-  <!-- Nav -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-banshee-bg/80 backdrop-blur-md border-b border-white/5">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2 text-xl font-bold">
-        <img src="/images/logo.png" alt="Banshee" class="w-8 h-8" />
-        <span>Banshee</span>
-      </a>
-      <div class="flex items-center gap-6">
-        <a href="#features" class="text-banshee-muted hover:text-white transition-colors text-sm hidden sm:block">Features</a>
-        <a href="#pricing" class="text-banshee-muted hover:text-white transition-colors text-sm hidden sm:block">Pricing</a>
-        <a
-          href={earlyAccessUrl}
-          class="px-4 py-2 bg-banshee-ghost-dark hover:bg-banshee-ghost text-banshee-bg rounded-lg font-medium transition-colors text-sm"
-        >
-          Get Early Access
-        </a>
+<Layout title="Banshee: The support inbox for founders running multiple products">
+  <Nav />
+
+  <Hero />
+
+  <!-- PROOF -->
+  <div class="proof"><div class="wrap">
+    <span>Built for founders shipping <b>more than one thing</b></span>
+    <span>·</span><span>Microsaas</span><span>Indie</span><span>Solo founders</span><span>Vibe-coded apps</span>
+  </div></div>
+
+  <!-- WHY IT MATTERS -->
+  <Section
+    center
+    eyebrow="Build the right thing"
+    heading="Vibe-coding ships the app. Real conversations tell you what to build."
+    lead="AI can scaffold a product in a weekend. It cannot tell you what your customers actually need. Your first users can, but they will not open up to a bot. Banshee puts a real human (you) in the conversation, so every chat doubles as product research instead of a ticket deflected into the void."
+  />
+
+  <!-- PROBLEM -->
+  <Section
+    alt
+    eyebrow="The founder tax"
+    heading="You ship faster than you can answer email."
+    lead="And every support tool punishes you for it: per seat, per brand, per &quot;AI resolution.&quot; Run three products and the bills stack up before you've made a dollar."
+  >
+    <FeatureGrid items={founderTax} cols={3} />
+  </Section>
+
+  <!-- MULTI-BRAND -->
+  <Section id="multi-brand">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Multi-brand · included on Solo</span>
+        <h2>Every product. One inbox.</h2>
+        <p class="lead">Each brand gets its own widget, colors, logo, help center and email branding. You run them all from a single dashboard, as a team of one.</p>
+        <ul class="feat-list">
+          <li><span class="ck">✓</span> Per-brand widget, greeting, and topics</li>
+          <li><span class="ck">✓</span> Per-brand help center on your own domain (help.yourbrand.com)</li>
+          <li><span class="ck">✓</span> Per-brand email branding on transcripts and CSAT</li>
+          <li><span class="ck">✓</span> Switch brands from the workspace picker, no re-login</li>
+        </ul>
       </div>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
-    <!-- Background -->
-    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/images/hero-bg.png');"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-banshee-bg/50 via-transparent to-banshee-bg"></div>
-
-    <div class="max-w-6xl mx-auto px-6 py-20 relative z-10">
-      <div class="max-w-3xl">
-        <p class="text-banshee-ghost font-medium mb-4 text-sm uppercase tracking-wider">
-          Launching January 2025
-        </p>
-        <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
-          Only banshees should be
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-banshee-ghost to-banshee-accent">
-            screaming
-          </span>
-        </h1>
-        <p class="text-xl md:text-2xl text-banshee-muted mb-8 leading-relaxed">
-          Your support bill shouldn't be one of them. AI-powered customer chat that costs less than your coffee habit.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 mb-12">
-          <a
-            href={earlyAccessUrl}
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-banshee-ghost-dark hover:bg-banshee-ghost text-banshee-bg rounded-xl font-semibold text-lg transition-all shadow-lg shadow-banshee-ghost-dark/25 hover:shadow-banshee-ghost/40"
-          >
-            Get Early Access
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Hero Screenshot -->
-      <div class="mt-8 rounded-2xl border border-white/10 bg-banshee-bg-soft/30 backdrop-blur-sm p-4 max-w-4xl">
-        <img
-          src="/images/hero-screenshot.png"
-          alt="Banshee.chat inbox and widget"
-          class="rounded-xl w-full"
-        />
-      </div>
-    </div>
-  </section>
-
-  <!-- Value Props -->
-  <section id="features" class="py-20 border-t border-white/5 scroll-mt-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Speak Every Language -->
-        <div class="p-8 rounded-2xl bg-gradient-to-b from-banshee-bg-soft/50 to-transparent border border-white/5">
-          <div class="w-14 h-14 rounded-xl bg-banshee-bg-soft flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-banshee-ghost" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3 uppercase tracking-wide">Speak Every Language</h3>
-          <p class="text-banshee-muted leading-relaxed">
-            Your customers write in French, you read English. They see French. Magic.
-          </p>
-        </div>
-
-        <!-- AI That Reads Your Code -->
-        <div class="p-8 rounded-2xl bg-gradient-to-b from-banshee-bg-soft/50 to-transparent border border-white/5">
-          <div class="w-14 h-14 rounded-xl bg-banshee-bg-soft flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-banshee-ghost" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3 uppercase tracking-wide">AI That Reads Your Code</h3>
-          <p class="text-banshee-muted leading-relaxed">
-            Connect your repo. AI answers "how do I..." by actually knowing how.
-          </p>
-        </div>
-
-        <!-- Answer From Anywhere -->
-        <div class="p-8 rounded-2xl bg-gradient-to-b from-banshee-bg-soft/50 to-transparent border border-white/5">
-          <div class="w-14 h-14 rounded-xl bg-banshee-bg-soft flex items-center justify-center mb-5">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-banshee-ghost" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3 uppercase tracking-wide">Answer From Anywhere</h3>
-          <p class="text-banshee-muted leading-relaxed">
-            Full inbox on mobile. Get pinged on Slack. Reply from the beach.
-          </p>
+      <div class="panel">
+        <div style="font-size:var(--fs-xs);color:var(--muted-foreground);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Switch workspace</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="ib-ws" style="border:1px solid var(--primary);border-radius:var(--radius-md)"><div class="ib-ws-icon">OW</div><div><div class="ib-ws-name">Old World Rankings</div><div class="ib-ws-sub">8 open</div></div><span class="ib-badge mint" style="margin-left:auto">27 live</span></div>
+          <div class="ib-ws" style="border:1px solid var(--border);border-radius:var(--radius-md)"><div class="ib-ws-icon" style="background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff">Le</div><div><div class="ib-ws-name">Ledgerly</div><div class="ib-ws-sub">3 open</div></div><span class="ib-badge" style="margin-left:auto">4 live</span></div>
+          <div class="ib-ws" style="border:1px solid var(--border);border-radius:var(--radius-md)"><div class="ib-ws-icon" style="background:linear-gradient(135deg,#818cf8,#22d3ee);color:#fff">Po</div><div><div class="ib-ws-name">Postcards</div><div class="ib-ws-sub">1 open</div></div><span class="ib-badge" style="margin-left:auto">2 live</span></div>
         </div>
       </div>
     </div>
-  </section>
+  </Section>
 
-  <!-- Free Tier Callout -->
-  <section class="py-20 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="text-banshee-ghost font-medium mb-4 text-sm uppercase tracking-wider">
-          Free Forever
-        </p>
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">
-          Solo founders, we got you
-        </h2>
-        <p class="text-xl text-banshee-muted mb-8 leading-relaxed">
-          You just vibe coded your app and hit deploy. People are signing up. Now what? Who are they? What do they need? How do you even talk to them?
-        </p>
-        <p class="text-xl text-banshee-text mb-10 leading-relaxed">
-          Add one script tag. Start talking to your users in minutes.
-        </p>
-        <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="p-5 rounded-xl bg-banshee-bg-soft/30 border border-white/5">
-            <p class="text-2xl font-bold text-banshee-ghost mb-1">3</p>
-            <p class="text-banshee-muted text-sm">Team members</p>
-          </div>
-          <div class="p-5 rounded-xl bg-banshee-bg-soft/30 border border-white/5">
-            <p class="text-2xl font-bold text-banshee-ghost mb-1">Unlimited</p>
-            <p class="text-banshee-muted text-sm">Conversations</p>
-          </div>
-          <div class="p-5 rounded-xl bg-banshee-bg-soft/30 border border-white/5">
-            <p class="text-2xl font-bold text-banshee-ghost mb-1">100+</p>
-            <p class="text-banshee-muted text-sm">Languages</p>
-          </div>
-          <div class="p-5 rounded-xl bg-banshee-bg-soft/30 border border-white/5">
-            <p class="text-2xl font-bold text-banshee-ghost mb-1">Full</p>
-            <p class="text-banshee-muted text-sm">Mobile apps</p>
-          </div>
-        </div>
+  <!-- HUMAN-FIRST AI -->
+  <Section alt id="human-first">
+    <div class="split">
+      <div class="panel">
+        <ChatSnippet messages={translationExchange} />
+      </div>
+      <div>
+        <span class="eyebrow">Human-first AI</span>
+        <h2>AI does the grunt work. You do the talking.</h2>
+        <p class="lead">No bot-wall. No per-resolution meter. Banshee's AI translates 100+ languages in real time, drafts replies you can accept or edit, and tidies your canned answers, so a real human still answers, just faster and in any language.</p>
+        <ul class="feat-list">
+          <li><span class="ck">✓</span> Two-way live translation (visitor and agent)</li>
+          <li><span class="ck">✓</span> AI draft suggestions you can accept, edit, or ignore</li>
+          <li><span class="ck">✓</span> Canned-answer clustering keeps shortcuts tidy</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </Section>
 
-  <!-- Smart Cards -->
-  <section class="py-20 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            Route Customers Instantly
-          </h2>
-          <p class="text-xl text-banshee-muted mb-6 leading-relaxed">
-            No code. No flows. Just cards that send customers where they need to go.
-          </p>
-          <ul class="space-y-3 text-banshee-text">
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 rounded-full bg-banshee-ghost"></div>
-              "Track my order" → order bot flow
-            </li>
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 rounded-full bg-banshee-ghost"></div>
-              "Talk to sales" → sales inbox
-            </li>
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 rounded-full bg-banshee-ghost"></div>
-              "Technical help" → support inbox
-            </li>
-          </ul>
-        </div>
-
-        <!-- Smart Cards Screenshot -->
-        <div class="rounded-2xl border border-white/10 bg-banshee-bg-soft/30 backdrop-blur-sm p-4">
-          <img
-            src="/images/smart-cards-screenshot.png"
-            alt="Banshee.chat widget with smart cards"
-            class="rounded-xl w-full"
-          />
-        </div>
-      </div>
+  <!-- HUMAN MOMENTS -->
+  <Section
+    center
+    eyebrow="Real conversations · anonymized"
+    heading="The moment they realize you're human."
+    lead="Customers are so used to bot-walls that a real reply catches them off guard, the good kind. Actual messages from Banshee inboxes."
+  >
+    <div class="grid g2">
+      {testimonials.map((messages) => <ChatSnippet messages={messages} card />)}
     </div>
-  </section>
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:16px;text-align:center">Anonymized real messages. Confirm consent before publishing.</p>
+  </Section>
 
-  <!-- Live Map -->
-  <section class="py-20 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <!-- Live Map Screenshot -->
-        <div class="rounded-2xl border border-white/10 bg-banshee-bg-soft/30 backdrop-blur-sm p-4 order-2 lg:order-1">
-          <img
-            src="/images/live-map-screenshot.png"
-            alt="Banshee.chat live visitor map"
-            class="rounded-xl w-full"
-          />
-        </div>
-
-        <div class="order-1 lg:order-2">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">
-            See Your Customers. Live.
-          </h2>
-          <p class="text-xl text-banshee-muted mb-6 leading-relaxed">
-            Watch visitors land on your site in real-time. Know where they're from before they say hello.
-          </p>
-          <ul class="space-y-3 text-banshee-text">
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 rounded-full bg-banshee-ghost"></div>
-              Live map with visitor locations
-            </li>
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 rounded-full bg-banshee-ghost"></div>
-              See what page they're browsing
-            </li>
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 rounded-full bg-banshee-ghost"></div>
-              Start a conversation proactively
-            </li>
-          </ul>
-        </div>
-      </div>
+  <!-- VISITOR MAP -->
+  <Section
+    alt
+    id="visitor-map"
+    center
+    eyebrow="Live visitor map"
+    heading="See who's on your sites, right now."
+    lead="Watch visitors land in real time, see what page they're on and where they're from, and start the conversation before they even say hello."
+  >
+    <div class="map" style="min-height:320px;max-width:900px;margin:0 auto">
+      <span class="label">● 12 live · 3 brands · 6 countries</span>
+      <span class="dot live-pulse" style="top:30%;left:18%"></span><span class="dot p live-pulse" style="top:26%;left:44%"></span>
+      <span class="dot" style="top:48%;left:50%"></span><span class="dot" style="top:58%;left:74%"></span>
+      <span class="dot p live-pulse" style="top:40%;left:82%"></span><span class="dot" style="top:66%;left:28%"></span>
+      <span class="dot" style="top:36%;left:62%"></span><span class="dot p" style="top:72%;left:56%"></span>
     </div>
-  </section>
+  </Section>
 
-  <!-- Pricing -->
-  <section id="pricing" class="py-20 border-t border-white/5 scroll-mt-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
-          Pricing That Won't Make You Scream
-        </h2>
+  <!-- FEATURE GRID -->
+  <Section
+    eyebrow="Everything else, built in"
+    heading="A real support platform, not a widget."
+  >
+    <FeatureGrid items={featureGrid} cols={3} />
+  </Section>
+
+  <!-- INTERCOM CONTRAST -->
+  <Section
+    alt
+    id="compare"
+    eyebrow="The honest comparison"
+    heading="Flat and predictable. Not a per-seat surprise."
+    lead="We won't quietly move you from $119 to $854 a month. (A real founder's Intercom story.)"
+  >
+    <ComparisonTable columns={compareColumns} rows={compareRows} />
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:12px">Competitor figures are public list prices, mid-2026. Banshee pricing shown qualitatively. See Pricing.</p>
+  </Section>
+
+  <!-- BUILDERS / MCP -->
+  <Section id="founders">
+    <div class="split">
+      <div>
+        <span class="eyebrow">Built for builders</span>
+        <h2>Your support, as tools for your AI.</h2>
+        <p class="lead">Banshee ships an MCP server, so Claude (or any agent you build) can read and answer conversations right inside your workflow. The support tool that speaks your stack's language.</p>
+        <ul class="feat-list">
+          <li><span class="ck">✓</span> Public REST API and webhooks</li>
+          <li><span class="ck">✓</span> MCP server: conversations as agent tools</li>
+          <li><span class="ck">✓</span> Included on every plan, even Free</li>
+          <li><span class="ck">✓</span> One <span class="mono">&lt;script&gt;</span> tag to install the widget</li>
+        </ul>
       </div>
-
-      <div class="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
-        <!-- Free -->
-        <div class="p-8 rounded-2xl bg-gradient-to-b from-banshee-bg-soft/50 to-transparent border border-white/10 text-center">
-          <h3 class="text-2xl font-bold mb-2">Free</h3>
-          <p class="text-4xl font-extrabold text-banshee-ghost mb-4">$0<span class="text-lg font-normal text-banshee-muted">/mo</span></p>
-          <p class="text-banshee-muted mb-6">Everything you need to start</p>
-          <a
-            href={earlyAccessUrl}
-            class="block w-full py-3 px-6 rounded-xl border border-banshee-ghost/30 text-banshee-ghost hover:bg-banshee-ghost/10 font-medium transition-colors"
-          >
-            Start Free
-          </a>
-        </div>
-
-        <!-- Solo -->
-        <div class="p-8 rounded-2xl bg-gradient-to-b from-banshee-ghost/10 to-transparent border border-banshee-ghost/30 text-center relative">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-banshee-ghost text-banshee-bg text-xs font-bold rounded-full uppercase tracking-wider">
-            Popular
-          </div>
-          <h3 class="text-2xl font-bold mb-2">Solo</h3>
-          <p class="text-4xl font-extrabold text-banshee-ghost mb-4">$19<span class="text-lg font-normal text-banshee-muted">/mo</span></p>
-          <p class="text-banshee-muted mb-6">Unlimited everything</p>
-          <a
-            href={earlyAccessUrl}
-            class="block w-full py-3 px-6 rounded-xl bg-banshee-ghost-dark hover:bg-banshee-ghost text-banshee-bg font-medium transition-colors"
-          >
-            Get Early Access
-          </a>
-        </div>
-      </div>
-
-      <p class="text-center text-banshee-muted text-lg">
-        Meanwhile, Intercom starts at <span class="text-white font-semibold">$74/seat</span>. Per month.<br />
-        <span class="text-banshee-text">We'll let that sink in.</span>
-      </p>
+      <div class="codeblock" set:html={mcpSnippet}></div>
     </div>
-  </section>
+  </Section>
 
-  <!-- Integrations -->
-  <section class="py-20 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-12">
-        Fits Your Stack
-      </h2>
+  <!-- PRICING -->
+  <Section
+    alt
+    id="pricing"
+    center
+    eyebrow="Pricing"
+    heading="Flat. Predictable. Free to start."
+    lead="No per-seat tax. No per-resolution meter. Big team? We'll talk. We won't auto-bill you into next quarter."
+  >
+    <Pricing tiers={pricingTiers} />
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:18px;text-align:center">Indicative, pricing finalizing. Very large teams: custom.</p>
+  </Section>
 
-      <div class="flex flex-wrap items-center justify-center gap-6 mb-8">
-        <!-- Slack -->
-        <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-banshee-bg-soft/50 border border-white/5">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#E01E5A" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zm10.124 2.521a2.528 2.528 0 0 1 2.52-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.52V8.834zm-1.271 0a2.528 2.528 0 0 1-2.521 2.521 2.528 2.528 0 0 1-2.521-2.521V2.522A2.528 2.528 0 0 1 15.166 0a2.528 2.528 0 0 1 2.521 2.522v6.312zm-2.521 10.124a2.528 2.528 0 0 1 2.521 2.52A2.528 2.528 0 0 1 15.166 24a2.528 2.528 0 0 1-2.521-2.522v-2.52h2.521zm0-1.271a2.528 2.528 0 0 1-2.521-2.521 2.528 2.528 0 0 1 2.521-2.521h6.312A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.521h-6.312z"/>
-          </svg>
-          <span class="text-banshee-text font-medium">Slack</span>
-        </div>
-        <!-- GitHub -->
-        <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-banshee-bg-soft/50 border border-white/5">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-          </svg>
-          <span class="text-banshee-text font-medium">GitHub</span>
-        </div>
-        <!-- Linear -->
-        <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-banshee-bg-soft/50 border border-white/5">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#5E6AD2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M2.886 4.18A11.982 11.982 0 0 1 11.99 0C18.624 0 24 5.376 24 12.009c0 3.64-1.62 6.903-4.18 9.105L2.887 4.18ZM1.817 5.626l16.556 16.556c-.524.33-1.075.62-1.65.866L.951 7.277c.247-.575.537-1.126.866-1.65ZM.322 9.163l14.515 14.515c-.71.172-1.443.282-2.195.322L0 11.358a12 12 0 0 1 .322-2.195Zm-.17 4.862 9.823 9.824a12.02 12.02 0 0 1-9.824-9.824Z"/>
-          </svg>
-          <span class="text-banshee-text font-medium">Linear</span>
-        </div>
-        <!-- Discord -->
-        <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-banshee-bg-soft/50 border border-white/5">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#5865F2" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
-          </svg>
-          <span class="text-banshee-text font-medium">Discord</span>
-        </div>
-        <!-- Zapier -->
-        <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-banshee-bg-soft/50 border border-white/5">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#FF4A00" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15.633 1.63c-.454-.787-1.292-1.272-2.191-1.272h-2.893c-.9 0-1.738.485-2.191 1.272L1.637 12.545c-.453.787-.453 1.752 0 2.539l6.72 10.916c.454.786 1.292 1.272 2.192 1.272h2.893c.9 0 1.738-.486 2.191-1.272l6.721-10.916c.453-.787.453-1.752 0-2.54L15.633 1.63zM12 16.751a4.751 4.751 0 110-9.502 4.751 4.751 0 010 9.502z"/>
-          </svg>
-          <span class="text-banshee-text font-medium">Zapier</span>
-        </div>
-        <!-- Jira -->
-        <div class="flex items-center gap-3 px-6 py-4 rounded-xl bg-banshee-bg-soft/50 border border-white/5">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="#0052CC" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11.571 11.513H0a5.218 5.218 0 0 0 5.232 5.215h2.13v2.057A5.215 5.215 0 0 0 12.575 24V12.518a1.005 1.005 0 0 0-1.005-1.005zm5.723-5.756H5.736a5.215 5.215 0 0 0 5.215 5.214h2.129v2.058a5.218 5.218 0 0 0 5.215 5.214V6.758a1.001 1.001 0 0 0-1.001-1.001zM23.013 0H11.455a5.215 5.215 0 0 0 5.215 5.215h2.129v2.057A5.215 5.215 0 0 0 24 12.483V1.005A1.001 1.001 0 0 0 23.013 0Z"/>
-          </svg>
-          <span class="text-banshee-text font-medium">Jira</span>
-        </div>
-      </div>
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>Stop screaming.<br><span class="banshee-wordmark">Start talking.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Only banshees should be screaming. Add one script tag and start talking to your users in minutes, across every product you've shipped.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
 
-      <p class="text-banshee-muted text-lg">
-        One script tag to install. Webhooks for everything else.
-      </p>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="py-20 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">
-          Ready to Stop Screaming?
-        </h2>
-        <p class="text-xl text-banshee-muted mb-8">
-          Launching end of January. Early access gets locked-in pricing forever.
-        </p>
-        <a
-          href={earlyAccessUrl}
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-banshee-ghost-dark hover:bg-banshee-ghost text-banshee-bg rounded-xl font-semibold text-lg transition-all shadow-lg shadow-banshee-ghost-dark/25 hover:shadow-banshee-ghost/40"
-        >
-          Get Early Access
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-8 border-t border-white/5">
-    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <img src="/images/logo.png" alt="Banshee" class="w-6 h-6" />
-        <span class="text-banshee-muted text-sm">Banshee.chat</span>
-      </div>
-      <p class="text-banshee-muted text-sm">© 2025 Banshee.chat</p>
-    </div>
-  </footer>
+  <Footer />
 </Layout>
