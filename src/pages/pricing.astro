@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/marketing.css';
+
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Section from '../components/Section.astro';
+import Pricing from '../components/Pricing.astro';
+import Icon from '../components/Icon.astro';
+import { tiers, planMatrix, startUrl } from '../data/pricing';
+
+const faqs = [
+  { q: 'Is there really a free plan?', a: 'Yes, free forever: one brand, one inbox, 100 conversations a month, the widget, help center, mobile apps, and the API and MCP server. No card required.' },
+  { q: 'Do you charge per AI resolution?', a: 'No. Banshee never meters your support. AI assists with translation and draft replies, but a real human answers, and you are never billed per resolution.' },
+  { q: 'Can I run multiple brands on the cheap tier?', a: 'Yes. Multi-brand is included from Solo, so every product you ship lives in one inbox without an enterprise plan.' },
+  { q: 'What counts as a conversation?', a: 'A conversation is a single thread with a customer, however many messages it contains. Limits are per month and reset each month.' },
+  { q: 'What happens if I go over my plan?', a: 'We will let you know rather than silently bill you into next quarter. Upgrade when it makes sense; very large teams move to custom pricing.' },
+  { q: 'Is this pricing final?', a: 'These figures are indicative while we finalize plans. The shape will not change: flat, predictable, no per-seat tax, free to start.' },
+];
+---
+
+<Layout
+  title="Banshee pricing: flat, predictable, free to start"
+  description="Flat, predictable pricing for founders. No per-seat tax, no per-resolution meter, multi-brand from the cheap tier, free to start."
+>
+  <Nav />
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <span class="pill"><Icon name="ghost" size={15} /> No per-seat tax. No per-resolution meter.</span>
+    <h1 style="margin-top:18px">Flat. Predictable. <span class="banshee-wordmark">Free to start.</span></h1>
+    <p class="lead">One founder or a whole team, one product or ten: you get a flat, predictable bill. No per-seat tax, no per-resolution meter, and multi-brand from the cheap tier.</p>
+    <div class="herocta">
+      <a href={startUrl} class="btn btn-primary">Start free</a>
+      <a href="/compare" class="btn btn-ghost">Compare the alternatives</a>
+    </div>
+  </div></header>
+
+  <!-- TIERS -->
+  <Section>
+    <Pricing tiers={tiers} />
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:18px;text-align:center">Indicative, pricing finalizing. Very large teams: custom. Solo's 3 refers to agents and inboxes.</p>
+  </Section>
+
+  <!-- PLAN MATRIX -->
+  <Section alt eyebrow="Compare plans" heading="What is included, plan by plan.">
+    <div style="margin-top:24px">
+      <table class="cmp plan-table">
+        <thead>
+          <tr><th></th><th>Free</th><th class="us">Solo</th><th>Team</th></tr>
+        </thead>
+        <tbody>
+          {planMatrix.map((row) => (
+            <tr>
+              <td class="cmp-label">{row.label}</td>
+              {[row.free, row.solo, row.team].map((val, i) => (
+                <td class:list={[i === 1 && 'plan-solo']}>
+                  {val === 'yes' ? <span class="cmp-mark good"><Icon name="check" size={16} /></span>
+                    : val === 'no' ? <span class="cmp-mark bad"><Icon name="x" size={16} /></span>
+                    : <span>{val}</span>}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:12px">* Unlimited agents within reason. Very large teams move to custom pricing.</p>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section eyebrow="Questions" heading="The pricing questions founders ask.">
+    <div class="faq">
+      {faqs.map((f) => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>Stop screaming.<br><span class="banshee-wordmark">Start talking.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag and start talking to your users in minutes, across every product you have shipped. Free to start.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+
+  <style>
+    .plan-table td:not(.cmp-label), .plan-table thead th:not(:first-child) { text-align: center; }
+    .plan-table .cmp-mark { margin: 0; display: inline-flex; }
+    .plan-table .plan-solo { background: color-mix(in oklch, var(--primary) 6%, transparent); }
+    .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 22px; }
+    .faq-item h3 { font-size: var(--fs-lg); margin-bottom: 8px; }
+    .faq-item p { color: var(--muted-foreground); font-size: var(--fs-sm); }
+    @media (max-width: 900px) { .faq { grid-template-columns: 1fr; } }
+  </style>
+</Layout>

@@ -1,0 +1,28 @@
+---
+// Live visitor map. The world silhouette is generated from the same
+// world-atlas data the real app uses (geoNaturalEarth1 projection), inlined so
+// it tints via currentColor. Dots sit roughly over the continents.
+import worldMap from '../assets/world-map.svg?raw';
+
+const dots = [
+  { top: '35%', left: '22%', accent: false, live: true },  // North America
+  { top: '30%', left: '30%', accent: true, live: true },   // North America east
+  { top: '70%', left: '33%', accent: false, live: false }, // South America
+  { top: '31%', left: '50%', accent: true, live: true },   // Europe
+  { top: '58%', left: '53%', accent: false, live: false }, // Africa
+  { top: '37%', left: '68%', accent: true, live: true },   // Asia
+  { top: '40%', left: '63%', accent: false, live: false }, // Middle East
+  { top: '74%', left: '84%', accent: false, live: false }, // Australia
+];
+---
+
+<div class="map map-visitors">
+  <div class="map-world" set:html={worldMap}></div>
+  <span class="label">● 12 live · 3 brands · 6 countries</span>
+  {dots.map((d) => (
+    <span
+      class:list={['dot', d.accent && 'p', d.live && 'live-pulse']}
+      style={`top:${d.top};left:${d.left}`}
+    ></span>
+  ))}
+</div>

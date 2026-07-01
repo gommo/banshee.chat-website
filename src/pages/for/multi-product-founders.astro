@@ -1,0 +1,130 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/marketing.css';
+import '../../styles/inbox.css';
+
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import Section from '../../components/Section.astro';
+import FeatureGrid from '../../components/FeatureGrid.astro';
+import Pricing from '../../components/Pricing.astro';
+import WorkspaceSwitcher from '../../components/WorkspaceSwitcher.astro';
+import Icon from '../../components/Icon.astro';
+import { tiers, startUrl } from '../../data/pricing';
+
+const founderTax = [
+  { icon: 'dollar-sign', heading: 'The per-seat tax', body: 'Intercom runs multi-brand only on its Expert plan, about <b style="color:var(--foreground)">$132 / seat / month</b>. Add a brand, add a bill.' },
+  { icon: 'bot', heading: 'The resolution tax', body: 'Bots answer for you at <b style="color:var(--foreground)">$0.99 per AI resolution</b>, an unpredictable bill that grows with your success.' },
+  { icon: 'layers', heading: 'The workspace tax', body: 'Most tools make you spin up a separate account or workspace per product. More logins, more invoices, more chaos.' },
+];
+
+const multiBrand = [
+  { icon: 'ghost', heading: 'Per-brand widget', body: 'Each product gets its own widget, colors, greeting and topics. Your customers never see another brand.' },
+  { icon: 'book-open', heading: 'Help center on your domain', body: 'A themed, searchable knowledge base per brand on help.yourbrand.com, SEO sitemap included.' },
+  { icon: 'mail', heading: 'Per-brand email branding', body: 'Transcripts, CSAT surveys and follow-ups all go out branded as the product they belong to.' },
+  { icon: 'layers', heading: 'One login, every brand', body: 'Switch products from the workspace picker. No separate accounts, no re-login, one bill.' },
+  { icon: 'languages', heading: 'Live translation everywhere', body: 'Two-way translation across 100+ languages on every brand, so global customers get answered in their language.' },
+  { icon: 'map-pin', heading: 'One visitor map', body: 'See who is live across all your products at once, with page history and location.' },
+];
+---
+
+<Layout
+  title="Banshee for founders running multiple products"
+  description="Run real, human support for every product you ship from one inbox. Multi-brand from the cheap tier, live translation, a visitor map, and flat, predictable pricing."
+>
+  <Nav />
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <div class="split">
+      <div>
+        <span class="pill"><Icon name="ghost" size={15} /> For founders running multiple products</span>
+        <h1 style="margin-top:18px">You ship faster than you can answer email.<br><span class="banshee-wordmark">Run support for all of it from one inbox.</span></h1>
+        <p class="lead">Vibe-coding means you ship a portfolio of products, fast. Banshee lets you be the real human answering across every one of them, without a separate account, a per-seat tax, or a bot billed per resolution.</p>
+        <div class="herocta">
+          <a href={startUrl} class="btn btn-primary">Start free</a>
+          <a href="/pricing" class="btn btn-ghost">See pricing</a>
+        </div>
+      </div>
+      <div class="panel">
+        <WorkspaceSwitcher />
+      </div>
+    </div>
+  </div></header>
+
+  <!-- PROBLEM -->
+  <Section
+    alt
+    eyebrow="The founder tax"
+    heading="Every support tool punishes you for shipping more than one thing."
+    lead="Per seat, per brand, per AI resolution. Run three products and the bills stack up before you have made a dollar."
+  >
+    <FeatureGrid items={founderTax} cols={3} />
+  </Section>
+
+  <!-- YOU ARE SUPPORT -->
+  <Section>
+    <div class="split">
+      <div>
+        <span class="eyebrow">You are customer service</span>
+        <h2>The human reply is your edge. Banshee makes it manageable.</h2>
+        <p class="lead">When everything else is AI-generated, a real person on the other end is what sets you apart. Your first users will tell you what to build next, but only if they reach a human, not a bot-wall. Banshee keeps you in the conversation across every product, with AI doing the grunt work so you can keep up.</p>
+        <ul class="feat-list">
+          <li><span class="ck">✓</span> A real human answers, AI drafts and translates</li>
+          <li><span class="ck">✓</span> Every chat doubles as product research</li>
+          <li><span class="ck">✓</span> Native iOS and Android apps, so you reply from anywhere</li>
+          <li><span class="ck">✓</span> No per-resolution meter, ever</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div style="font-size:var(--fs-xs);color:var(--muted-foreground);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">One inbox, every brand</div>
+        <ul class="feat-list" style="margin-top:0">
+          <li><span class="ck">✓</span> Old World Rankings, Ledgerly and Postcards in one place</li>
+          <li><span class="ck">✓</span> One notification stream, one login</li>
+          <li><span class="ck">✓</span> Assign, resolve and reply without switching accounts</li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- MULTI-BRAND CAPABILITIES -->
+  <Section
+    alt
+    eyebrow="Multi-brand, included from Solo"
+    heading="Every product, its own identity. All in one dashboard."
+  >
+    <FeatureGrid items={multiBrand} cols={3} />
+  </Section>
+
+  <!-- COMPARISON CALLOUT -->
+  <Section>
+    <div class="panel" style="text-align:center;max-width:760px;margin:0 auto">
+      <span class="eyebrow">The math</span>
+      <h3 style="margin:10px 0 8px">Intercom charges about $132 a seat to run two brands.</h3>
+      <p style="color:var(--muted-foreground);font-size:var(--fs-base);max-width:560px;margin:0 auto 18px">Banshee includes multi-brand from the cheap Solo tier, with no per-resolution meter. Here is the full, honest breakdown.</p>
+      <a href="/compare/intercom" class="btn btn-ghost">See Banshee vs Intercom</a>
+    </div>
+  </Section>
+
+  <!-- PRICING -->
+  <Section
+    alt
+    id="pricing"
+    center
+    eyebrow="Pricing"
+    heading="Flat. Predictable. Free to start."
+    lead="No per-seat tax. No per-resolution meter. Multi-brand from the cheap tier. Very large teams: talk to us."
+  >
+    <Pricing tiers={tiers} />
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:18px;text-align:center">Indicative, pricing finalizing. <a href="/pricing" style="color:var(--primary)">See full pricing</a>.</p>
+  </Section>
+
+  <!-- FINAL CTA -->
+  <section class="finalcta"><div class="wrap">
+    <h2>Ship the products.<br><span class="banshee-wordmark">Run the support from one inbox.</span></h2>
+    <p class="lead" style="margin:18px auto 28px">Add one script tag to each product and start talking to your users in minutes. Free to start.</p>
+    <a href={startUrl} class="btn btn-primary" style="font-size:var(--fs-base);padding:14px 26px">Start free</a>
+  </div></section>
+
+  <Footer />
+</Layout>

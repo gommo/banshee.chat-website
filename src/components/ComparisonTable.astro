@@ -1,10 +1,16 @@
 ---
 // Honest comparison table. `columns` is the header row (the first column is
-// "us" / Banshee and gets the mint treatment). `rows` is a list of
-// { label, cells } where each cell is { text, variant?: 'us' | 'bad' }.
+// "us" / Banshee and gets the mint header). Each cell carries a status that
+// renders a tick (good) or cross (bad) icon next to explanatory text; 'neutral'
+// (the default) shows text only. Colours stay soft: mint tick, muted cross, no
+// harsh red on dark.
+import Icon from './Icon.astro';
+
+export type CellStatus = 'good' | 'bad' | 'neutral';
+
 interface Cell {
   text: string;
-  variant?: 'us' | 'bad';
+  status?: CellStatus;
 }
 
 interface Row {
@@ -30,8 +36,19 @@ const { columns, rows } = Astro.props;
   <tbody>
     {rows.map((row) => (
       <tr>
-        <td>{row.label}</td>
-        {row.cells.map((cell) => <td class={cell.variant}>{cell.text}</td>)}
+        <td class="cmp-label">{row.label}</td>
+        {row.cells.map((cell) => {
+          const status = cell.status ?? 'neutral';
+          return (
+            <td>
+              <span class:list={['cmp-cell', `cmp-${status}`]}>
+                {status === 'good' && <span class="cmp-mark good"><Icon name="check" size={16} /></span>}
+                {status === 'bad' && <span class="cmp-mark bad"><Icon name="x" size={16} /></span>}
+                <span>{cell.text}</span>
+              </span>
+            </td>
+          );
+        })}
       </tr>
     ))}
   </tbody>

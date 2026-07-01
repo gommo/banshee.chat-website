@@ -1,13 +1,19 @@
 ---
-// Chat bubble snippet. `messages` is a list of { role: 'v' (visitor) | 'a'
-// (agent), text, tag? }. When a message has a `tag`, it renders the small mono
-// caption under the bubble (used by the translation exchange). Set `card` to
-// wrap the thread in a card (used by the testimonial grid). Emoji are allowed
-// inside chat bubbles per the brand rules.
+// Chat snippet styled to match the real agent inbox (MessageBubble): an avatar
+// beside each message, a solid muted bubble for the visitor and a solid mint
+// bubble for the agent, with an optional translation caption. `messages` is a
+// list of { role: 'v' (visitor) | 'a' (agent), text, tag?, avatar? }. When a
+// message has `avatar` it is shown in the avatar circle (emoji or initials);
+// otherwise the visitor gets a person icon and the agent the Banshee mark.
+// Set `card` to wrap the thread in a card (used by the testimonial grid).
+// Emoji are allowed inside chat bubbles per the brand rules.
+import Icon from './Icon.astro';
+
 interface Message {
   role: 'v' | 'a';
   text: string;
   tag?: string;
+  avatar?: string;
 }
 
 interface Props {
@@ -16,22 +22,23 @@ interface Props {
 }
 
 const { messages, card = false } = Astro.props;
+const Wrapper = card ? 'div' : 'div';
 ---
 
-{card ? (
-  <div class="card"><div class="chat">
-    {messages.map((m) => (
-      m.tag
-        ? <div><div class={`bub ${m.role}`}>{m.text}</div><div class="tag">{m.tag}</div></div>
-        : <div class={`bub ${m.role}`}>{m.text}</div>
-    ))}
-  </div></div>
-) : (
-  <div class="chat">
-    {messages.map((m) => (
-      m.tag
-        ? <div><div class={`bub ${m.role}`}>{m.text}</div><div class="tag">{m.tag}</div></div>
-        : <div class={`bub ${m.role}`}>{m.text}</div>
-    ))}
-  </div>
-)}
+<Wrapper class:list={[card && 'card', 'cs-thread']}>
+  {messages.map((m) => (
+    <div class:list={['cs-row', m.role === 'a' ? 'a' : 'v']}>
+      <span class:list={['cs-av', m.role === 'a' ? 'a' : 'v']}>
+        {m.avatar
+          ? <span>{m.avatar}</span>
+          : m.role === 'a'
+            ? <img src="/images/logo.png" alt="" width="20" height="20" />
+            : <Icon name="user" size={15} />}
+      </span>
+      <div class="cs-col">
+        <div class:list={['cs-bubble', m.role === 'a' ? 'a' : 'v']}>{m.text}</div>
+        {m.tag && <div class="tag">{m.tag}</div>}
+      </div>
+    </div>
+  ))}
+</Wrapper>

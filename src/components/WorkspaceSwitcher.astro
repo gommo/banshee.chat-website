@@ -1,0 +1,29 @@
+---
+// The multi-brand workspace switcher visual (reuses the real inbox .ib-ws
+// styling). Anonymized placeholder brands. Drop inside a .panel.
+interface Brand {
+  initials: string;
+  name: string;
+  open: string;
+  live: string;
+  gradient?: string;
+  active?: boolean;
+}
+
+const brands: Brand[] = [
+  { initials: 'OW', name: 'Old World Rankings', open: '8 open', live: '27 live', active: true },
+  { initials: 'Le', name: 'Ledgerly', open: '3 open', live: '4 live', gradient: 'linear-gradient(135deg,#f59e0b,#ef4444)' },
+  { initials: 'Po', name: 'Postcards', open: '1 open', live: '2 live', gradient: 'linear-gradient(135deg,#818cf8,#22d3ee)' },
+];
+---
+
+<div style="font-size:var(--fs-xs);color:var(--muted-foreground);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Switch workspace</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+  {brands.map((b) => (
+    <div class="ib-ws" style={`border:1px solid ${b.active ? 'var(--primary)' : 'var(--border)'};border-radius:var(--radius-md)`}>
+      <div class="ib-ws-icon" style={b.gradient ? `background:${b.gradient};color:#fff` : undefined}>{b.initials}</div>
+      <div><div class="ib-ws-name">{b.name}</div><div class="ib-ws-sub">{b.open}</div></div>
+      <span class:list={['ib-badge', b.active && 'mint']} style="margin-left:auto">{b.live}</span>
+    </div>
+  ))}
+</div>

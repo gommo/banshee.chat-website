@@ -26,8 +26,8 @@ const startUrl = 'https://app.banshee.chat/early-access';
 const tableRows = c.rows.map((row) => ({
   label: row.label,
   cells: [
-    { text: row.banshee, variant: 'us' as const },
-    { text: row.them, variant: row.themBad ? ('bad' as const) : undefined },
+    { text: row.banshee, status: 'good' as const },
+    { text: row.them, status: row.themBad ? ('bad' as const) : ('neutral' as const) },
   ],
 }));
 
@@ -46,7 +46,7 @@ const description = c.lead;
     <p class="lead">{c.lead}</p>
     <div class="herocta">
       <a href={startUrl} class="btn btn-primary">Start free</a>
-      <a href="/#pricing" class="btn btn-ghost">See pricing</a>
+      <a href="/pricing" class="btn btn-ghost">See pricing</a>
     </div>
   </div></header>
 
