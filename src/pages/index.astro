@@ -12,6 +12,7 @@ import ComparisonTable from '../components/ComparisonTable.astro';
 import Pricing from '../components/Pricing.astro';
 import VisitorMap from '../components/VisitorMap.astro';
 import ProductsPanel from '../components/ProductsPanel.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
 import { tiers, startUrl } from '../data/pricing';
@@ -173,6 +174,22 @@ const testimonials = [
     lead="Watch visitors land in real time, see what page they're on and where they're from, and start the conversation before they even say hello."
   >
     <VisitorMap />
+  </Section>
+
+  <!-- HELP CENTERS (light screenshots break up the dark page) -->
+  <Section
+    center
+    id="help-center"
+    eyebrow="Help center · theme studio"
+    heading="Docs that look like your product, not your support vendor."
+    lead="Every product gets its own help center on its own domain, themed in the studio until no one could tell they share a platform."
+  >
+    <div class="grid g3">
+      <ImagePlaceholder label="Help center: clean and light" hint="Minimal SaaS docs look: white, generous spacing, blue accent." width={900} height={640} />
+      <ImagePlaceholder label="Help center: bold and colorful" hint="Strong brand color header, playful type. Clearly a different company." width={900} height={640} />
+      <ImagePlaceholder label="Help center: dark or editorial" hint="A third direction, dark mode or serif editorial, to show the range." width={900} height={640} />
+    </div>
+    <p class="mono" style="color:var(--muted-foreground);font-size:var(--fs-xs);margin-top:16px;text-align:center"><a href="/features/help-center" style="color:var(--primary)">More on help centers</a></p>
   </Section>
 
   <!-- FEATURE GRID -->

@@ -14,6 +14,21 @@ export interface FeatureCard {
 
 export type FeatureVisual = 'workspace' | 'inbox' | 'map' | 'translate' | 'mcp';
 
+// Placeholder screenshot slot: rendered as a light dashed block at the right
+// aspect ratio until the real shot exists.
+export interface ImageSlot {
+  label: string;
+  hint?: string;
+  w: number;
+  h: number;
+}
+
+export interface FeatureGallery {
+  heading: string;
+  lead?: string;
+  items: ImageSlot[];
+}
+
 export interface Feature {
   slug: string;
   name: string;
@@ -25,6 +40,10 @@ export interface Feature {
   titleTail: string;
   lead: string;
   visual?: FeatureVisual;
+  /** Wide placeholder screenshot under the hero. */
+  heroImage?: ImageSlot;
+  /** Optional screenshot band after the capabilities grid. */
+  gallery?: FeatureGallery;
   overviewBlurb: string;
   sectionHeading: string;
   sectionLead: string;
@@ -55,6 +74,12 @@ export const features: Feature[] = [
       { icon: 'mail', heading: 'Per-product email branding', body: 'Transcripts and CSAT go out branded as the right product.' },
       { icon: 'layers', heading: 'One workspace, one bill', body: 'All your products live in one workspace. One login, no separate accounts, no stacked invoices.' },
     ],
+    gallery: {
+      heading: 'Three products, three brands, one login.',
+      items: [
+        { label: 'Products settings page', hint: 'The real Products screen: three products listed, each with its own logo, colors and channels.', w: 1600, h: 900 },
+      ],
+    },
     bulletsHeading: 'Built for founders juggling products',
     bullets: [
       'One workspace for every product, no separate accounts',
@@ -82,6 +107,14 @@ export const features: Feature[] = [
       { icon: 'sparkles', heading: 'AI draft replies', body: 'Suggested answers you can accept, edit or ignore. You stay in control.' },
       { icon: 'smartphone', heading: 'Answer anywhere', body: 'Native iOS and Android apps mean the beach counts as the office.' },
     ],
+    gallery: {
+      heading: 'The widget, on your site.',
+      lead: 'Each product themes its own widget, so it always looks like yours.',
+      items: [
+        { label: 'Widget open on a light landing page', hint: 'Real widget over a light customer site, greeting and topics visible.', w: 900, h: 640 },
+        { label: 'Widget themed to a second brand', hint: 'Same widget, different product: different colors, logo and greeting.', w: 900, h: 640 },
+      ],
+    },
     bulletsHeading: 'What makes it fast',
     bullets: [
       'Lightweight widget that will not tank your Lighthouse score',
@@ -153,6 +186,16 @@ export const features: Feature[] = [
     title: 'A help center',
     titleTail: 'that looks like you.',
     lead: 'A searchable, themed knowledge base per brand, hosted on your own domain. Deflect the repeat questions, keep the human for everything else.',
+    heroImage: { label: 'Help center home, light theme', hint: 'Full-page shot of a real help center on a custom domain: brand logo, search bar, category cards. Light theme so it pops against the dark page.', w: 1600, h: 1000 },
+    gallery: {
+      heading: 'One theme studio. Three totally different help centers.',
+      lead: 'Same platform underneath. Nobody can tell, and that is the point.',
+      items: [
+        { label: 'Theme 1: clean and light', hint: 'Minimal SaaS docs look: white, generous spacing, blue accent.', w: 900, h: 640 },
+        { label: 'Theme 2: bold and colorful', hint: 'Strong brand color header, playful type. Clearly a different company.', w: 900, h: 640 },
+        { label: 'Theme 3: dark or editorial', hint: 'A third direction: dark mode or serif editorial, to show the range.', w: 900, h: 640 },
+      ],
+    },
     overviewBlurb: 'A themed, searchable knowledge base per brand on your own domain, with SEO sitemap and GA4.',
     sectionHeading: 'Self-serve for the easy stuff.',
     sectionLead: 'A real help center, themed to match each product, not a generic subdomain.',
@@ -205,6 +248,7 @@ export const features: Feature[] = [
     title: 'The numbers',
     titleTail: 'that matter.',
     lead: 'A real analytics suite, not a vanity dashboard. See your response time both in real time and within your working hours, so you know you are fast without being tied to your phone, plus CSAT, channel mix and where support is strong.',
+    heroImage: { label: 'Analytics dashboard', hint: 'The real analytics page: response-time cards, the world map, the when-customers-chat heatmap. Crop to the most colorful region.', w: 1600, h: 900 },
     overviewBlurb: 'Response time in real time and within your work hours, plus CSAT, channel mix, top countries and an agent leaderboard.',
     sectionHeading: 'Measure what good support looks like.',
     sectionLead: 'Enough insight to run support well, without a data team, or being on call around the clock.',
@@ -257,6 +301,7 @@ export const features: Feature[] = [
     title: 'Support from',
     titleTail: 'anywhere.',
     lead: 'Native iOS and Android agent apps with real-time push. Get pinged the moment a customer writes in and reply from wherever you are, across every brand.',
+    heroImage: { label: 'iOS and Android apps, side by side', hint: 'Two phone mockups on a light background: the inbox list on one, an open conversation with LiveTranslate on the other.', w: 1600, h: 900 },
     overviewBlurb: 'Native iOS and Android agent apps with real-time push, not a clunky wrapper.',
     sectionHeading: 'A real app, not an afterthought.',
     sectionLead: 'Founders are never at their desk. Neither is your inbox.',

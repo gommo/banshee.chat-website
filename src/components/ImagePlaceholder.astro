@@ -1,0 +1,25 @@
+---
+// Placeholder block for a real screenshot to be dropped in later. Renders at
+// the exact aspect ratio of the suggested export size, on a LIGHT background
+// so the layout previews how a light screenshot breaks up the dark pages.
+// Replace each instance with <img> once the shot exists.
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  hint?: string;
+  width: number;
+  height: number;
+  dark?: boolean;
+  class?: string;
+}
+
+const { label, hint, width, height, dark = false, class: className } = Astro.props;
+---
+
+<div class:list={['img-ph', dark && 'dark', className]} style={`aspect-ratio:${width}/${height}`}>
+  <span class="img-ph-ic"><Icon name="image" size={22} /></span>
+  <span class="img-ph-label">{label}</span>
+  <span class="img-ph-dims">{width} x {height}px · placeholder, swap for real screenshot</span>
+  {hint && <span class="img-ph-hint">{hint}</span>}
+</div>

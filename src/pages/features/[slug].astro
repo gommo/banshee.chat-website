@@ -12,6 +12,7 @@ import InboxDemo from '../../components/InboxDemo.astro';
 import ProductsPanel from '../../components/ProductsPanel.astro';
 import VisitorMap from '../../components/VisitorMap.astro';
 import ChatSnippet from '../../components/ChatSnippet.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
 
 import { features, type Feature } from '../../data/features';
 import { startUrl } from '../../data/pricing';
@@ -74,12 +75,28 @@ const mcpSnippet = `<span class="c"># .mcp.json</span>
         {f.visual === 'map' && <VisitorMap />}
       </div>
     )}
+    {f.heroImage && (
+      <div style="margin-top:48px;max-width:1000px;margin-left:auto;margin-right:auto">
+        <ImagePlaceholder label={f.heroImage.label} hint={f.heroImage.hint} width={f.heroImage.w} height={f.heroImage.h} />
+      </div>
+    )}
   </div></header>
 
   <!-- CAPABILITIES -->
   <Section alt eyebrow={f.name} heading={f.sectionHeading} lead={f.sectionLead}>
     <FeatureGrid items={f.capabilities} cols={f.capabilities.length === 3 ? 3 : 2} />
   </Section>
+
+  <!-- SCREENSHOT GALLERY -->
+  {f.gallery && (
+    <Section center eyebrow="In the app" heading={f.gallery.heading} lead={f.gallery.lead}>
+      <div class={`grid g${Math.min(f.gallery.items.length, 3)}`}>
+        {f.gallery.items.map((img) => (
+          <ImagePlaceholder label={img.label} hint={img.hint} width={img.w} height={img.h} />
+        ))}
+      </div>
+    </Section>
+  )}
 
   <!-- BULLETS -->
   <Section>
